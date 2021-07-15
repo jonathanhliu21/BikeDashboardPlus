@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div id="root">
+        <form action="/cfg" method="post">
+            <table>
+                <tr>
+                    <th>Configuration</th>
+                    <th>Description</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr v-for="i in 5" :key='i'>
+                    <td> [[cfgs[i-1].name]] </td>
+                    <td> [[cfgs[i-1].description]] 
+                        <a v-if="cfgs[i-1].name === 'TMZ'" href="/tzs" target="_blank">List of time zones</a>
+                    </td>
+                    <td> 
+                        <input v-model="msg[i-1]" :class="[cfgs[i-1].acpt.includes(msg[i-1]) || msg[i-1] === '' ? '' : 'cfgerr']" :name="[cfgs[i-1].name]">
+                        <p v-if="!cfgs[i-1].acpt.includes(msg[i-1]) && msg[i-1] !== ''" class='cfgerrtxt'>Value out of range</p>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="submit" :disabled="allSatisfy">
+            <p v-if="allSatisfy" class="cfgerrtxt">All values need to be valid before submitting</p>
+        </form>
+    </div>
+
+    <script src="{{url_for('static', filename='js/cfg.js')}}"></script>
+    <a href="/">Go back</a>
+{% endblock %}

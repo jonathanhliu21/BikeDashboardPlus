@@ -1,0 +1,11 @@
+.cfgerr{
+    border: 3px solid red;
+}
+
+.cfgerrtxt{
+    font-size: small;
+    color: red;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}

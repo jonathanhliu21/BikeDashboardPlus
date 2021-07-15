@@ -1,0 +1,16 @@
+{% extends "base.html"%}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+    <div id="root">
+        <a href="/cfg">Click here for configurations</a> <br>
+        <a href="/map">Click here for map</a>
+    </div>
+
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+    
+{% endblock %}
