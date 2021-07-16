@@ -253,7 +253,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
                     # create new file when button pressed
                     if (send["LED"][1] == 0):
                         tm = datetime.datetime.strptime(
-                            curdata["time"], "%Y-%m-%dT%H:%M:%S.000Z")
+                            curdata["time"][:-5], "%Y-%m-%dT%H:%M:%S")
                         new_track_file(tm)
 
             # if button 2 pressed
@@ -271,7 +271,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
             # make sure there is data from GPS since red LED would be on if no data
             if (send["LED"][1] == 0):
                 tm = datetime.datetime.strptime(
-                    curdata["time"], "%Y-%m-%dT%H:%M:%S.000Z")
+                    curdata["time"][:-5], "%Y-%m-%dT%H:%M:%S")
                 tracker(curdata["lat"], curdata["lon"], tm)
 
             # Process received data and prepare sending data
