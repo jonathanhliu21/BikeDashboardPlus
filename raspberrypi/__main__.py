@@ -1,7 +1,8 @@
-import time
 import subprocess
+import time
 
 import Adafruit_SSD1306
+import requests
 from gpiozero import Button
 from PIL import Image, ImageDraw, ImageFont
 
@@ -10,22 +11,53 @@ CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py"
 CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py"
 
 def handle_bike_mode() -> None: 
-    global display, img, draw, font
+    global display, img, draw, font, b
 
     while True:
         subprocess.call(CMD_BIKE_MODE.split())
         
         # if exits out here, means that OS error happened/Arduino disc or OLED disc
+        display.clear()
+        display.display()
+
+        draw.rectangle((0, 0, 128, 128), fill=0)
+        draw.text((0, 0), "Oh no!", fill=255, font=font)
+        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress to try again.", fill=255, font=font)  # print text to image buffer
+        display.image(img)
+        display.display()
+
+        # let user press button after reconnected and then try again
+        try:
+            b.wait_for_press()
+        except (KeyboardInterrupt):
+            display.clear()
+            display.display()
+            quit()
+
+def handle_server_mode() -> None:
+    global display, img, draw, font
+
+    # checks for internet connection in order to enter server mode
+    try:
+        requests.get("https://google.com")
+        subprocess.call(CMD_SERVER_MODE.split())
+    except requests.exceptions.ConnectionError:
+        # enter bike mode if no internet connection
 
         display.clear()
         display.display()
 
-        draw.text((0, 0), "Oh no!", fill=255, font=font)
-        draw.text((0, 16), "OLED or Arduino \ndisconnected. Check \nconnections, try again.", fill=255, font=font)
+        draw.rectangle((0, 0, 128, 128), fill=0)
+        draw.text((0, 0), "No connection", fill=255, font=font)
+        draw.text((0, 16), "Going into \nbike mode", fill=255, font=font)  # print text to image buffer
+        display.image(img)
+        display.display()
 
+        handle_bike_mode()
+        return
 
 def main() -> None:
-    global display, img, draw, font
+    global display, img, draw, font, b
 
     mode = None
 
@@ -53,7 +85,7 @@ def main() -> None:
 
     try:
         b.wait_for_press(timeout=5)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt):
         display.clear()
         display.display()
         quit()
@@ -76,7 +108,7 @@ def main() -> None:
 
         try:
             time.sleep(1)
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt):
             display.clear()
             display.display()
             quit()
@@ -88,8 +120,8 @@ def main() -> None:
         if (mode == "bike"):
             handle_bike_mode()
         elif (mode == "server"):
-            subprocess.call(CMD_SERVER_MODE.split())
-    except KeyboardInterrupt:
+            handle_server_mode()
+    except (KeyboardInterrupt):
         # clear display if keyboard interrupt
         display.clear()
         display.display()

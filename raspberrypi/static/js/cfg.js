@@ -480,7 +480,7 @@ const cfgs = [
   ),
   new Cfg(
     "24H",
-    "Indicates whether you use a 24 hour clock. If the value is 0, then the clock will show from 00:00-23:00. If it is 1, it will show a 12 hour clock with AM and PM at the end(1:00PM instead of 13:00). Value must be 0 or 1.",
+    "Indicates whether you use a 24 hour clock. If it is 0, it will show a 12 hour clock with AM and PM at the end(1:00PM instead of 13:00). If the value is 1, then the clock will show from 00:00-23:00. Value must be 0 or 1.",
     0,
     [0, 1]
   ),
