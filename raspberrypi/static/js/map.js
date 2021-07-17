@@ -74,13 +74,13 @@ function conv_sm_dist_unit(dist, unit){
         // variable will be something like 0.124 (not greater than 1)  
         //                   need to convert ^^^ to ft by multiplying by 5280 
 
-        return (trailing_miles*5280); 
+        return (trailing_miles*5280).toFixed(3); // prevent floating point error
     } else {
         var trailing_km = dist_in_big_unit-Math.floor(dist_in_big_unit);
         // variable will be something like 0.124 (not greater than 1)  
         //                   need to convert ^^^ to meters by multiplying by 1000 
 
-        return (trailing_km*1000);
+        return (trailing_km*1000).toFixed(3); // prevent floating point error
     }
 }
 
