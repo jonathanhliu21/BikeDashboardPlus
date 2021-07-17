@@ -13,3 +13,8 @@
 .map{
     height: 50vh;
 }
+
+.disttext{
+    font-size: medium;
+    color: blue;
+}

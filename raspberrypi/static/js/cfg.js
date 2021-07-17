@@ -1,4 +1,6 @@
 class Cfg {
+  // cfg class, represents a row in a table
+
   constructor(_nm, _desc, _val, _acpt) {
     this.name = _nm;
     this.description = _desc;
@@ -11,6 +13,7 @@ class Cfg {
   }
 }
 
+// pytz common timezones
 const all_tz = [
   "Africa/Abidjan",
   "Africa/Accra",
@@ -453,6 +456,7 @@ const all_tz = [
   "UTC",
 ];
 
+// hard coded configurations
 const cfgs = [
   new Cfg(
     "LED",
@@ -486,6 +490,7 @@ const cfgs = [
   ),
 ];
 
+// put configs on DOM
 new Vue({
   el: "#root",
   delimiters: ["[[", "]]"],
@@ -495,6 +500,8 @@ new Vue({
   },
   computed: {
     allSatisfy: function(){
+      // checks that all values are in range before letting user submit
+      // prevents error in python when in bike mode
       for (let i = 0; i < 5; i++){
         if (!this.cfgs[i].acpt.includes(this.msg[i])) return true;
       }
@@ -502,6 +509,3 @@ new Vue({
     }
   }
 });
-
-
-// 
