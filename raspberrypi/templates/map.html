@@ -12,6 +12,8 @@ crossorigin=""/>
 {% block body %}
 
 <div id="mapid" class="map"></div>
+<div id="dist"> [[distance]] </div>
 
-<script src="../static/js/map.js"></script>
+<script src="{{url_for('static', filename='js/map.js')}}"></script>
+<script>handle_track_data(`{{tracking}}`, "{{unit}}")</script>
 {% endblock %}

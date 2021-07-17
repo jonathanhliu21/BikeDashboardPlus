@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+Choose the track path you want to view. <br>
+
+{% for i in range(filenames[0] | length) %}
+<a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }}</a> <br>
+{% endfor %}
+
+<a href="/">Go back</a>
+
+{% endblock %}
