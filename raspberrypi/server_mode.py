@@ -76,6 +76,45 @@ def map_file_page(f_name) -> None:
 
     return render_template("map.html", tracking=track_str, unit=unit)
 
+@app.route("/map/combine", methods=["GET", "POST"])
+def combine_map_page():
+    def _conv_filename(name):
+        return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
+
+    # get all track files
+    filenames = next(os.walk("tracking"), (None, None, []))[2]
+    filenames.sort()
+
+    oldf = deepcopy(filenames)
+    filenames = [_conv_filename(name) for name in filenames]
+    filenames = [filenames, oldf]
+
+    if (request.method == "GET"):
+        return render_template("combine.html", filenames=filenames)
+    else:
+        files = json.loads(request.data.decode("utf-8"))["files"]
+
+        s_total = ""
+        f_name_final = oldf[int(files[0])]
+        print(f_name_final)
+        for i in files:
+            ind = int(i)
+            f_name = os.path.join("tracking", oldf[ind])
+
+            if (str(i) != files[-1]):
+                with open(f_name, 'a') as f:
+                    f.write("PAUSED\n")
+
+            with open(f_name, 'r') as f:
+                s_total += f.read()
+            
+            os.remove(f_name)
+        
+        with open(os.path.join("tracking", f_name_final), 'w') as f:
+            f.write(s_total)
+
+        return ("Successfully combined", 200)
+
 @app.route("/map/delete/<f_name>", methods=["POST"])
 def delete_map_endpt(f_name):
     # delete file

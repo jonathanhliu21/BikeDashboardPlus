@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div id="combine_pg">
+    Click buttons in order that you want to combine them. The list below will indicate the order of your choices. 
+    The numbers in the list represent the numbers to the left of the file name.
+    <br>
+    How this works is that after each file, the program will add PAUSED then combine them together into one file.
+    This means that on the map, it will show a PAUSED marker at the coordinates at the end of one file, and a RESUME marker at the coordinates at the start of the next file.
+    The file name (time it started tracking at) will be the same as the first file.
+    <br>
+    <b>Make sure that the data in the files you combine is valid, or you may end up with an invalid combined file!</b> <br>
+    <b>Note that you cannot uncombine files after you combine them!!</b> <br><br>
+
+    <input type="button" id="clearbutton" value="Click me to clear choices" @click="checked_=[]"> <br>
+
+
+
+    {% for i in range(filenames[0] | length) %}
+    <input type="checkbox" id="tracknum{{i}}" name="tracknum{{i}}" value="{{i}}" v-model="checked_">
+    <label for="tracknum{{i}}"> {{i+1}}. <a href="/map/{{filenames[1][i]}}">{{filenames[0][i]}}</a> </label>
+    <br>
+    {% endfor %}
+
+    <div v-for="i in checked_">
+        [[parseInt(i)+1]]
+    </div>
+
+    <input type="submit" :disabled="checked_.length <= 1" @click="post_cmb()"> <br>
+    <a href="/map">Back</a>
+</div>
+
+<script src="{{url_for('static', filename='js/combine.js')}}"></script>
+<script>main("{{filenames[0] | length}}")</script>
+
+{% endblock %}
