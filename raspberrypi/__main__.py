@@ -1,5 +1,6 @@
 import subprocess
 import time
+import threading
 
 import Adafruit_SSD1306
 import requests
@@ -7,6 +8,7 @@ from gpiozero import Button
 from PIL import Image, ImageDraw, ImageFont
 
 BUTTON_PIN = 17
+BUTTON_SH_PIN = 18
 CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py"
 CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py"
 
@@ -19,12 +21,14 @@ def handle_bike_mode() -> None:
         # if exits out here, means that OS error happened/Arduino disc or OLED disc
         display.clear()
         display.display()
+        time.sleep(0.1)
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Oh no!", fill=255, font=font)
         draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress to try again.", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
+        time.sleep(0.1)
 
         # let user press button after reconnected and then try again
         try:
@@ -46,27 +50,65 @@ def handle_server_mode() -> None:
 
         display.clear()
         display.display()
+        time.sleep(0.1)
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "No connection", fill=255, font=font)
         draw.text((0, 16), "Going into \nbike mode", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
+        time.sleep(0.1)
 
         handle_bike_mode()
         return
 
+def shutdown_button() -> None:
+    global display, img, draw, font
+
+    # wait 30 seconds so the button wouldn't interfere with any of the setup stuff
+    time.sleep(30)
+
+    # shuts down pi when this is pressed
+
+    sh_b = Button(BUTTON_SH_PIN)
+    sh_b.wait_for_press()
+
+    # stop all sub programs
+    STOP_CMD_BK = "pkill -f raspberrypi/bike_mode.py"
+    STOP_CMD_SV = "pkill -f raspberrypi/server_mode.py"
+    subprocess.call(STOP_CMD_BK.split())
+    subprocess.call(STOP_CMD_SV.split())
+
+
+    time.sleep(1)
+
+    draw.rectangle((0, 0, 128, 128), fill=0)
+    draw.text((0, 0), "Powering off", fill=255, font=font)
+    draw.text((0, 16), "Wait 15 sec after \nthis screen shows \nbefore switching off.", fill=255, font=font)  # print text to image buffer
+    display.image(img)
+    display.display()
+    time.sleep(0.1)
+
+    # power off
+    POWER_OFF_CMD = "sudo shutdown -h now"
+    subprocess.call(POWER_OFF_CMD.split())
+
 def main() -> None:
     global display, img, draw, font, b
+
+    th1 = threading.Thread(target=shutdown_button, daemon=True)
+    th1.start()
 
     mode = None
 
     # init display
     display = Adafruit_SSD1306.SSD1306_128_64(rst=None)
     display.begin()
+    time.sleep(1)
 
     display.clear()
     display.display()
+    time.sleep(0.1)
 
     # init python PIL
     img = Image.new('1', (display.width, display.height))
@@ -79,6 +121,8 @@ def main() -> None:
 
     display.image(img)
     display.display()
+    time.sleep(0.1)
+    
 
     # wait for button press to go into server mode
     b = Button(BUTTON_PIN)
@@ -88,6 +132,8 @@ def main() -> None:
     except (KeyboardInterrupt):
         display.clear()
         display.display()
+        time.sleep(0.1)
+        
         quit()
 
     # display if button pressed/button not pressed
@@ -97,6 +143,7 @@ def main() -> None:
         draw.text((0, 16), "In server mode \nVisit website: \nraspberrypi.local:5000", fill=255, font=font)
         display.image(img)
         display.display()
+        time.sleep(0.1)
 
         mode = "server"
     else:
@@ -105,12 +152,14 @@ def main() -> None:
         draw.text((0, 16), "No press detected \nEntering bike mode", fill=255, font=font)
         display.image(img)
         display.display()
+        time.sleep(0.1)
 
         try:
             time.sleep(1)
         except (KeyboardInterrupt):
             display.clear()
             display.display()
+            
             quit()
 
         mode = "bike"
@@ -125,12 +174,14 @@ def main() -> None:
         # clear display if keyboard interrupt
         display.clear()
         display.display()
+        
     except OSError as e:
         print(e)
         pass
     
     display.clear()
     display.display()
+    
     quit()
     
 
