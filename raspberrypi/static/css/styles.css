@@ -18,3 +18,9 @@
     font-size: medium;
     color: blue;
 }
+
+.dataerr{
+    font-size:large;
+    color: red;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

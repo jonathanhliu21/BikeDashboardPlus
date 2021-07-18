@@ -88,6 +88,42 @@ function handle_track_data(s, unit){
     // takes in file string and cfg unit from flask jinja
 
     var arr = s.trimEnd().split("\n");
+    // if last element is "PAUSED"
+    while (arr.length > 0 && (arr[arr.length-1] === "PAUSED" || arr[arr.length-1] === "")) arr.pop();
+
+    // put delete button on DOM and put msg if the file has data error
+    new Vue({
+        el: "#data_err",
+        delimiters: ["[[", "]]"],
+        data: {
+            text: (arr.length <= 0 ? "See weird text? No map? That's because there is a data error. Consider deleting the file." : "")     
+        },
+        methods: {
+            // warns user if they actually want to delete file
+            warn: function(){
+                var cur_file = window.location.pathname.slice(5, window.location.pathname.length);
+
+                var pressed = confirm("Are you sure you want to delete this file PERMANENTLY? There will be NO WAY to recover this file.");
+                if (pressed){
+                    // POST request to delete endpoint
+                    axios.post(`/map/delete/${cur_file}`, {})
+                    .then((response) => {
+                        alert("Successfully deleted");
+                        window.location.href = "/map";
+                    })
+                    .catch((error) => {
+                        alert("Error in deleting: ".concat(error));
+                    });
+                } 
+            }
+        }
+    });
+
+    // data error = file has only "PAUSED" or is empty, and has no coordinates
+    if (arr.length <= 0){
+        return;
+    }
+
     var dist = calc_tot_dist(arr); // calculate distance
 
     // starting and ending coordinates
@@ -189,6 +225,15 @@ function handle_track_data(s, unit){
             distance2: smaller_val,
             unit1: unit_str,
             unit2: smaller_unit 
+        }
+    });
+
+    // raw tracking data
+    new Vue({
+        el: "#raw_data",
+        delimiters: ["[[", "]]"],
+        data: {
+            arr_: arr
         }
     });
 }

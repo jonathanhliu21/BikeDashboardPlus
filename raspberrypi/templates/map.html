@@ -22,7 +22,21 @@
 
 <a href="/map">Back</a>
 
-<script src="{{url_for('static', filename='js/map.min.js')}}"></script>
+<div id="raw_data">
+  <h1>Raw tracking data</h1>
+  <div v-for="i in arr_">
+    [[i]] 
+  </div>
+</div>
+
+<div id="data_err" class="dataerr">
+  [[text]]
+  <button @click="warn()">
+    Delete this file
+  </button>
+</div>
+
+<script src="{{url_for('static', filename='js/map.js')}}"></script>
 <script>
   handle_track_data(`{{tracking}}`, "{{unit}}");
 </script>

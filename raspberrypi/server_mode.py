@@ -8,12 +8,12 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home_page() -> None:
+def home_page():
     return render_template("index.html")
 
 
 @app.route("/cfg", methods=["GET", "POST"])
-def cfg_page() -> None:
+def cfg_page():
     if (request.method == 'POST'):
         a = request.form.to_dict()
         f = open("raspberrypi/cfg.json", 'w')
@@ -33,17 +33,19 @@ def cfg_page() -> None:
 
 
 @app.route("/cfg_saved")
-def cfg_saved_page() -> None:
+def cfg_saved_page():
     return render_template("cfg_saved.html")
 
 
 @app.route("/tzs")
-def tzs_page() -> None:
+def tzs_page():
     return render_template("tzs.html")
 
 
 @app.route("/map")
-def map_page() -> None:
+def map_page():
+    # displays links to files of maps
+    
     def _conv_filename(name):
         return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
 
@@ -59,6 +61,12 @@ def map_page() -> None:
 
 @app.route("/map/<f_name>")
 def map_file_page(f_name) -> None:
+    # displays maps themselves
+
+    filenames = next(os.walk("tracking"), (None, None, []))[2]
+    if (f_name not in filenames):
+        return ("Track file not found", 400)
+
     f = open(os.path.join("tracking", f_name), 'r')
     track_str = f.read()
     f.close()
@@ -68,9 +76,16 @@ def map_file_page(f_name) -> None:
 
     return render_template("map.html", tracking=track_str, unit=unit)
 
-# @app.route("/static/<img>", methods=["GET"])
-# def get_img(img):
-#     pass
+@app.route("/map/delete/<f_name>", methods=["POST"])
+def delete_map_endpt(f_name):
+    # delete file
+
+    filenames = next(os.walk("tracking"), (None, None, []))[2]
+    if (f_name not in filenames):
+        return ("File not found", 400)
+    
+    os.remove(os.path.join("tracking", f_name))
+    return ("Successfully removed", 200)
 
 
 def main() -> None:
