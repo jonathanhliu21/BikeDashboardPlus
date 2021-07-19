@@ -43,6 +43,9 @@ prevTimeEpoch = 0
 fileName = "ERROR"
 msg = "ERROR"
 
+# interval of plotting data during tracking
+INTERVAL = 2
+
 # what to put onto disp
 disp_data_g = {
     "speed": 0,
@@ -53,10 +56,13 @@ disp_data_g = {
 }
 
 # err (debug)
+
+
 def err(ex_type, value, tb):
     print(f"Exception occured at: {datetime.datetime.now()}")
     print(ex_type.__name__)
     traceback.print_tb(tb)
+
 
 def get_gps_data() -> None:
     """
@@ -94,7 +100,9 @@ def new_track_file(tm: datetime.datetime) -> None:
 def tracker(lat: int, lng: int, tm: datetime.datetime) -> None:
     global tracking, fileName, prevTimeEpoch, msg
 
-    if (tracking == 0 or (tracking == 1 and msg == "PAUSED") or math.floor(time.time())-prevTimeEpoch < 2):
+    # makes sure doesn't print "PAUSED" multiple times
+    # print coordinates every 2 seconds
+    if (tracking == 0 or (tracking == 1 and msg.strip().upper() == "PAUSED") or math.floor(time.time())-prevTimeEpoch < INTERVAL):
         return
     else:
         prevTimeEpoch = math.floor(time.time())
@@ -138,7 +146,6 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
 
     unit_to_str = ["mph", "kph", "m/s"]
 
-    
     mode_font = fonts[0]
     sp_font = fonts[1]
     unit_font = fonts[2]
@@ -172,9 +179,9 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     drawing.text((0, 16), disp_speed, font=sp_font, fill=255)
     drawing.text((84, 16), disp_unit, font=unit_font, fill=255)
     drawing.text((84, 48), disp_track, font=track_font, fill=255)
-    
+
     disp.image(img)
-    
+
     disp.display()
     time.sleep(0.2)
 
@@ -211,14 +218,14 @@ def disp_th() -> None:
             err_time_str = datetime.datetime.now().strftime("%m/%d %H:%M:%S")
             print(f"display disconnected at {err_time_str} and reconnecting")
 
-            try: 
+            try:
                 display.begin()
                 time.sleep(2)
                 display.clear()
                 time.sleep(1)
             except OSError:
                 time.sleep(5)
-            
+
 
 def main_ser_connect(ser: serial.Serial) -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
@@ -352,7 +359,7 @@ def main() -> None:
     # debug
     sys.excepthook = err
 
-    # GPS command 
+    # GPS command
     CMD = "sudo gpsd /dev/serial0 -F /var/run/gpsd.sock"
     subprocess.run(CMD.split())
 
@@ -372,6 +379,6 @@ def main() -> None:
 
     GPIO.cleanup()
 
+
 if (__name__ == "__main__"):
     main()
-
