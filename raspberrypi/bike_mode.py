@@ -3,8 +3,10 @@ import json
 import math
 import os
 import subprocess
+import sys
 import threading
 import time
+import traceback
 from copy import deepcopy
 
 import Adafruit_SSD1306
@@ -50,6 +52,11 @@ disp_data_g = {
     "track": ''
 }
 
+# err (debug)
+def err(ex_type, value, tb):
+    print(f"Exception occured at: {datetime.datetime.now()}")
+    print(ex_type.__name__)
+    traceback.print_tb(tb)
 
 def get_gps_data() -> None:
     """
@@ -115,7 +122,7 @@ def conv_unit(val: int, unit: int) -> int:
 
 
 def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
-                    drawing: ImageDraw.ImageDraw, font: ImageFont.ImageFont, data: dict) -> None:
+                    drawing: ImageDraw.ImageDraw, fonts: "list[ImageFont.ImageFont]", data: dict) -> None:
     """
     draws data on screen according to plan doc
 
@@ -131,11 +138,11 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
 
     unit_to_str = ["mph", "kph", "m/s"]
 
-    FONTFILE = "raspberrypi/fonts/arial.ttf"
-    mode_font = ImageFont.truetype(FONTFILE, 15)
-    sp_font = ImageFont.truetype(FONTFILE, 45)
-    unit_font = ImageFont.truetype(FONTFILE, 20)
-    track_font = ImageFont.truetype(FONTFILE, 15)
+    
+    mode_font = fonts[0]
+    sp_font = fonts[1]
+    unit_font = fonts[2]
+    track_font = fonts[3]
 
     # dd-mm or mm-dd
     dayfmt = "%m/%d "
@@ -150,14 +157,12 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
         date_x = 40
         tmfmt = "%H:%M"
 
+    # conv all to disp strings
     disp_speed = str(conv_unit(data["speed"], int(data["unit"])))
     disp_dt = str(datetime.datetime.strftime(data["datetime"], dayfmt + tmfmt))
     disp_mode = "M:" + str(data["mode"])
     disp_unit = str(unit_to_str[data["unit"]])
     disp_track = str(data["track"])
-
-    # print(disp_speed + " " + disp_dt + " " + disp_mode + " " + disp_unit + " " + disp_track)
-    disp.clear()
 
     # draw black rectangle the size of screen to clear the screen
     drawing.rectangle((0, 0, 128, 128), fill=0)
@@ -167,9 +172,11 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     drawing.text((0, 16), disp_speed, font=sp_font, fill=255)
     drawing.text((84, 16), disp_unit, font=unit_font, fill=255)
     drawing.text((84, 48), disp_track, font=track_font, fill=255)
-
+    
     disp.image(img)
+    
     disp.display()
+    time.sleep(0.2)
 
 
 def disp_th() -> None:
@@ -178,16 +185,40 @@ def disp_th() -> None:
 
     display = Adafruit_SSD1306.SSD1306_128_64(rst=None)
     display.begin()
+    time.sleep(2)
+
     display.clear()
     display.display()
+    time.sleep(1)
 
     img = Image.new('1', (display.width, display.height))
     drawing = ImageDraw.Draw(img)
-    font = ImageFont.load_default()
+
+    FONTFILE = "raspberrypi/fonts/arial.ttf"
+    fonts = [
+        ImageFont.truetype(FONTFILE, 15),
+        ImageFont.truetype(FONTFILE, 45),
+        ImageFont.truetype(FONTFILE, 20),
+        ImageFont.truetype(FONTFILE, 15)
+    ]
 
     while True:
-        draw_on_display(display, img, drawing, font, disp_data_g)
+        try:
+            draw_on_display(display, img, drawing, fonts, disp_data_g)
+        except OSError:
+            # reconnect OLED if disconnected
 
+            err_time_str = datetime.datetime.now().strftime("%m/%d %H:%M:%S")
+            print(f"display disconnected at {err_time_str} and reconnecting")
+
+            try: 
+                display.begin()
+                time.sleep(2)
+                display.clear()
+                time.sleep(1)
+            except OSError:
+                time.sleep(5)
+            
 
 def main_ser_connect(ser: serial.Serial) -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
@@ -295,7 +326,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
             send_str += "\n"
 
             # print what was received and what we are sending (debug)
-            # if (rcv != {} or True):
+            # if (rcv != {}):
             #     print(f"received: {rcv}")
             #     print(f"sending: {send_str}\n")
 
@@ -317,6 +348,9 @@ def main_ser_connect(ser: serial.Serial) -> None:
 
 def main() -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
+
+    # debug
+    sys.excepthook = err
 
     # GPS command 
     CMD = "sudo gpsd /dev/serial0 -F /var/run/gpsd.sock"

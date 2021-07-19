@@ -1,3 +1,4 @@
+import datetime
 import subprocess
 import time
 import threading
@@ -19,16 +20,13 @@ def handle_bike_mode() -> None:
         subprocess.call(CMD_BIKE_MODE.split())
         
         # if exits out here, means that OS error happened/Arduino disc or OLED disc
-        display.clear()
-        display.display()
-        time.sleep(0.1)
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Oh no!", fill=255, font=font)
         draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress to try again.", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
-        time.sleep(0.1)
+        time.sleep(1)
 
         # let user press button after reconnected and then try again
         try:
@@ -48,16 +46,12 @@ def handle_server_mode() -> None:
     except requests.exceptions.ConnectionError:
         # enter bike mode if no internet connection
 
-        display.clear()
-        display.display()
-        time.sleep(0.1)
-
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "No connection", fill=255, font=font)
         draw.text((0, 16), "Going into \nbike mode", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
-        time.sleep(0.1)
+        time.sleep(1)
 
         handle_bike_mode()
         return
@@ -84,10 +78,10 @@ def shutdown_button() -> None:
 
     draw.rectangle((0, 0, 128, 128), fill=0)
     draw.text((0, 0), "Powering off", fill=255, font=font)
-    draw.text((0, 16), "Wait 15 sec after \nthis screen shows \nbefore switching off.", fill=255, font=font)  # print text to image buffer
+    draw.text((0, 16), "Wait ~15 sec after \nthis screen shows \nbefore switching off.", fill=255, font=font)  # print text to image buffer
     display.image(img)
     display.display()
-    time.sleep(0.1)
+    time.sleep(1)
 
     # power off
     POWER_OFF_CMD = "sudo shutdown -h now"
@@ -95,6 +89,8 @@ def shutdown_button() -> None:
 
 def main() -> None:
     global display, img, draw, font, b
+
+    print(f"Started program at {datetime.datetime.now()}")
 
     th1 = threading.Thread(target=shutdown_button, daemon=True)
     th1.start()
@@ -104,11 +100,11 @@ def main() -> None:
     # init display
     display = Adafruit_SSD1306.SSD1306_128_64(rst=None)
     display.begin()
-    time.sleep(1)
+    time.sleep(2)
 
     display.clear()
     display.display()
-    time.sleep(0.1)
+    time.sleep(1)
 
     # init python PIL
     img = Image.new('1', (display.width, display.height))
@@ -121,7 +117,7 @@ def main() -> None:
 
     display.image(img)
     display.display()
-    time.sleep(0.1)
+    time.sleep(1)
     
 
     # wait for button press to go into server mode
@@ -143,7 +139,7 @@ def main() -> None:
         draw.text((0, 16), "In server mode \nVisit website: \nraspberrypi.local:5000", fill=255, font=font)
         display.image(img)
         display.display()
-        time.sleep(0.1)
+        time.sleep(1)
 
         mode = "server"
     else:
@@ -152,7 +148,7 @@ def main() -> None:
         draw.text((0, 16), "No press detected \nEntering bike mode", fill=255, font=font)
         display.image(img)
         display.display()
-        time.sleep(0.1)
+        time.sleep(1)
 
         try:
             time.sleep(1)
