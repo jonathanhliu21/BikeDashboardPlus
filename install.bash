@@ -2,8 +2,6 @@
 
 set -e;
 
-cp install.bash install_backup.bash;
-
 start=$SECONDS;
 
 if [[ "$1 " == " " ]];
@@ -16,6 +14,7 @@ read -p "This will install BikeDashboardPlus on your current directory. From now
 
 if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
+    cp install.bash install_backup.bash;
 
     # check if Bike Dashboard is already installed elsewhere
     if grep -q "Bike Dashboard" ~/.bashrc;
@@ -68,6 +67,10 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     echo "Installing Arduino-CLI avr board (Nano)...";
     BikeDashboardPlus/bin/arduino-cli core install arduino:avr;
     echo "Successfully installed Arduino Nano.";
+
+    echo "Installing Arduino libraries...";
+    BikeDashboardPlus/bin/arduino-cli lib install ArduinoJson;
+    echo "Done installing libraries.";
 
     # arduino-cli compile & upload code to Arduino
     echo "Compiling and uploading code to Arduino...";
