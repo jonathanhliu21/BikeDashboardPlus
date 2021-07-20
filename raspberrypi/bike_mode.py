@@ -55,10 +55,15 @@ disp_data_g = {
     "track": ''
 }
 
-# err (debug)
-
+# Arduino serial port
+port_file = open("raspberrypi/port", 'r')
+port = port_file.read().strip()
 
 def err(ex_type, value, tb):
+    """
+    Custom error (for debugging)
+    """
+
     print(f"Exception occured at: {datetime.datetime.now()}")
     print(ex_type.__name__)
     traceback.print_tb(tb)
@@ -354,7 +359,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
 
 
 def main() -> None:
-    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
+    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, port
 
     # debug
     sys.excepthook = err
@@ -370,7 +375,7 @@ def main() -> None:
     th2.start()
 
     # serial init
-    ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1,
+    ser = serial.Serial(port, 115200, timeout=1,
                         stopbits=2, parity=serial.PARITY_NONE)
     ser.flush()
 
