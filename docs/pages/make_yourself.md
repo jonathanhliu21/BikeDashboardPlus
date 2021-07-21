@@ -1,5 +1,5 @@
 # Making this project yourself
-[Back to README](../../README.md)
+[Back to README](/README.md)
 
 ## Parts needed
 
