@@ -7,7 +7,7 @@ Over my spring break in April 2021, I made a bike dashboard ([Project descriptio
 This design includes a Raspberry Pi Zero connected to an Arduino Nano, which should fix the memory issues. The slowness can be solved by getting the data in a separate thread, so it wouldn't slow down the program. I replaced the big LCD with a 128x64 OLED and a LED matrix that will be hidden (I have not made a case for this yet), making it more inconspicuous. Lastly, I made a website that plots the tracked route on a map.
 
 ## Installation
-1. If you haven't installed the Raspberry Pi OS, follow the instructions below. Make sure to install "Raspberry Pi OS (32 bit)" and not any other OS as they might not come with Python, cURL.
+1. If you haven't installed the Raspberry Pi OS, follow the instructions below. Make sure to install "Raspberry Pi OS (32 bit)" and not any other OS as they might not come with Python or cURL.
 - [Setting up the Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
 - [Setting up the Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
 
