@@ -39,14 +39,23 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 
 ### Installing
 
-1. To install BikeDashboard Plus: 
+1. To install BikeDashboard Plus, first run this command: 
     ```
-    curl -s https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/install.bash -o install.bash && bash install.bash 
+    curl -s https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/install.bash -o install.bash
     ```
 
-    **This will edit ~/.bashrc, running the program whenever you start bash, so if you start the terminal, make sure to type ^C (control-C, keyboardInterrupt) to exit out of the program.**
+    After running this, you will have to figure out what serial port your Arduino. Type `ls -l /dev` to see all serial ports. The port for the Arduino should be `ttyUSB*` or `ttyACM*`. The best way to check which port the Arduino is located on is to plug in the Arduino, take note of the ports that are `ttyUSB*` or `ttyACM*`, then unplug the Arduino, then see which of those ports disappeared. That port would be the Arduino.
 
-2. Make a backup of /etc/rc.local: `cp /etc/rc.local /etc/rc_backup.local`
+    After getting the path to the serial port (ex `/etc/ttyUSB0` or `/etc/ttyACM0`), type this command in:
+    
+    ```
+    bash install.bash /path/to/serial/port
+    ```
+    Replace `/path/to/serial/port` with the actual path to the serial port.
+
+    **This will edit ~/.bashrc, running the program whenever you start bash, so if you start the terminal, make sure to type ^C (control-C) to exit out of the program.**
+
+2. Make a backup of /etc/rc.local: `sudo cp /etc/rc.local /etc/rc_backup.local`
 3. Edit /etc/rc.local
 - Type `sudo nano /etc/rc.local`
 - Scroll down. Type in `bash &` on the line that is before `exit 0`. **Make sure you type it before** `exit 0` **, and you type in the ampersand (&) or the Pi will not boot.**
@@ -58,11 +67,12 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 
 From now on, the program should immediately run whenever you turn on and boot up your Raspberry Pi.
 
-## Disabling 
+## What if I want to open my terminal? (Disabling) 
 This prevents the program from running whenever you start up your terminal on your Raspberry Pi.
 
-1. Run this command: `nano ~/.bashrc`
-2. Scroll down and remove the following lines from ~/.bashrc.
+1. When you open the terminal, press ^C (Control-C) **immediately**.
+2. Run this command: `nano ~/.bashrc`
+3. Scroll down and remove the following lines from ~/.bashrc.
 ```bash
 # Bike Dashboard 
 source /path/to/BikeDashboardPlus/run.bash
@@ -70,8 +80,8 @@ source /path/to/BikeDashboardPlus/run.bash
 
 ![bashrc_edit.png](../img/bashrc_edit.png)
 
-3. Press ^X (Control-X), then Y to save and exit.
-4. Reboot the Pi: `sudo reboot`
+4. Press ^X (Control-X), then Y to save and exit.
+5. Reboot the Pi: `sudo reboot`
     
 ## Uninstalling
 
