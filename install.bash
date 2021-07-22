@@ -26,6 +26,16 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     # remove file
     rm -rf BikeDashboardPlus || true;
 
+    # install GPS libraries
+    echo "Installing GPS libraries...";
+    if (yes | sudo apt install minicom gpsd gpsd-clients);
+        then
+        echo "Done installing GPS libraries.";
+    else
+        echo "Installing failed: Failed to install GPS libraries";
+        exit 1;
+    fi;
+
     # clone repository
     echo "Cloning repository...";
     if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git && rm -rf BikeDashboardPlus/.git);
