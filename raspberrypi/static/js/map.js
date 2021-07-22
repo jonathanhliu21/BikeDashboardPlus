@@ -135,6 +135,7 @@ function handle_track_data(s, unit){
 
     L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        minZoom: 1,
         maxZoom: 19,
         tileSize: 512,
         zoomOffset: -1,
