@@ -78,7 +78,7 @@ def shutdown_button() -> None:
 
     draw.rectangle((0, 0, 128, 128), fill=0)
     draw.text((0, 0), "Powering off", fill=255, font=font)
-    draw.text((0, 16), "Wait ~15 sec after \nthis screen shows \nbefore switching off.", fill=255, font=font)  # print text to image buffer
+    draw.text((0, 16), "Wait for green LED \non RPi to turn off \nbefore switching off.", fill=255, font=font)  # print text to image buffer
     display.image(img)
     display.display()
     time.sleep(1)
