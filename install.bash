@@ -36,6 +36,9 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
         exit 1;
     fi;
 
+    # disable gpsd.socket
+    sudo systemctl disable gpsd.socket;
+
     # clone repository
     echo "Cloning repository...";
     if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git && rm -rf BikeDashboardPlus/.git);
@@ -108,6 +111,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     cp ~/.bashrc ~/.bashrc_backup;
 
     printf "# Bike Dashboard \n" >> ~/.bashrc;  
+    printf "source $PWD/BikeDashboardPlus/env/bin/activate \n" >> ~/.bashrc;
     printf "source $PWD/BikeDashboardPlus/run.bash \n" >> ~/.bashrc;
 
     duration=$(( SECONDS - start ));
