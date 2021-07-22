@@ -109,7 +109,8 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     # edit .bashrc so it source calls run.bash on startup.
     # Copies bashrc. When installing, it will mv bashrc_backup to bashrc, replacing bashrc's contents with bashrc_backup's
     cp ~/.bashrc ~/.bashrc_backup;
-
+    
+    # Adds script to run program into .bashrc so the program runs whenever bash starts up.
     printf "# Bike Dashboard \n" >> ~/.bashrc;  
     printf "source $PWD/BikeDashboardPlus/env/bin/activate \n" >> ~/.bashrc;
     printf "source $PWD/BikeDashboardPlus/run.bash \n" >> ~/.bashrc;
