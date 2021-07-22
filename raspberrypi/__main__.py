@@ -92,7 +92,7 @@ def main() -> None:
 
     print(f"Started program at {datetime.datetime.now()}")
 
-    th1 = threading.Thread(target=shutdown_button, daemon=True)
+    th1 = threading.Thread(target=shutdown_button)
     th1.start()
 
     mode = None
