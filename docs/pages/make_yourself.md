@@ -75,6 +75,7 @@ This prevents the program from running whenever you start up your terminal on yo
 3. Scroll down and remove the following lines from ~/.bashrc.
 ```bash
 # Bike Dashboard 
+source /path/to/BikeDashboardPlus/env/bin/activate
 source /path/to/BikeDashboardPlus/run.bash
 ```
 
