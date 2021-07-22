@@ -59,7 +59,7 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 3. Edit /etc/rc.local
 - Type `sudo nano /etc/rc.local`
 - Scroll down. Type in `bash &` on the line that is before `exit 0`. **Make sure you type it before** `exit 0` **, and you type in the ampersand (&) or the Pi will not boot.**
-- Save and exit: Press ^X (Control-X), and then Y.
+- Save and exit: Press ^X (Control-X), and then Y, then enter.
 
 ![rc_local_edit.png](../img/rc_local_edit.png)
 
@@ -80,7 +80,7 @@ source /path/to/BikeDashboardPlus/run.bash
 
 ![bashrc_edit.png](../img/bashrc_edit.png)
 
-4. Press ^X (Control-X), then Y to save and exit.
+4. Press ^X (Control-X), then Y, then enter to save and exit.
 5. Reboot the Pi: `sudo reboot`
     
 ## Uninstalling
@@ -88,7 +88,7 @@ source /path/to/BikeDashboardPlus/run.bash
 1. Disable the program (See "Disabling")
 2. Remove the `bash` command from /etc/rc.local by typing in `sudo nano /etc/rc.local`
 3. Delete the `bash &` line you wrote when installing.
-4. Save and exit (Press ^X then Y)
+4. Save and exit (Press ^X then Y then enter)
 5. `cd` into the directory you installed BikeDashboardPlus in.
 6. Type `rm -rf BikeDashboardPlus` to delete the folder and all of its contents.
 7. Reboot the Pi: `sudo reboot`
