@@ -46,12 +46,12 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 
     After running this, you will have to figure out what serial port your Arduino. Type `ls -l /dev` to see all serial ports. The port for the Arduino should be `ttyUSB*` or `ttyACM*`. The best way to check which port the Arduino is located on is to plug in the Arduino, take note of the ports that are `ttyUSB*` or `ttyACM*`, then unplug the Arduino, then see which of those ports disappeared. That port would be the Arduino.
 
-    After getting the path to the serial port (ex `/etc/ttyUSB0` or `/etc/ttyACM0`), type this command in:
+    After getting the path to the serial port (ex `/dev/ttyUSB0` or `/dev/ttyACM0`), type this command in:
     
     ```
-    bash install.bash /path/to/serial/port
+    bash install.bash /dev/port
     ```
-    Replace `/path/to/serial/port` with the actual path to the serial port.
+    Replace `/dev/port` with the actual path to the serial port. The installation process should take around 1-2 minutes on a Raspberry Pi 4 and around 8-10 minutes on a Raspberry Pi Zero.
 
     **This will edit ~/.bashrc, running the program whenever you start bash, so if you start the terminal, make sure to type ^C (control-C) to exit out of the program.**
 
