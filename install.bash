@@ -16,7 +16,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
 
     # check if Bike Dashboard is already installed elsewhere
-    if (find ~ -iname BikeDashboardPlus);
+    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus"); ! [ "$v" = "" ] );
         then
         bdpath=$(<~/BikeDashboardPlus)
         echo "Bike Dashboard already installed in $bdpath";
@@ -25,6 +25,13 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
 
     # remove file
     rm -rf BikeDashboardPlus || true;
+
+    # check if port exists
+    if ( v=$(find /dev -maxdepth 1 -wholename "$1"); [ "$v" = "" ] || ( ! [[ "$1" = "/dev/"* ]] ) );
+        then
+        echo "Port not found";
+        exit 1;
+    fi;
 
     # install GPS libraries
     echo "Installing GPS libraries...";
