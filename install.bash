@@ -16,9 +16,9 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
 
     # check if Bike Dashboard is already installed elsewhere
-    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus"); ! [ "$v" = "" ] );
+    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus.txt"); ! [ "$v" = "" ] );
         then
-        bdpath=$(<~/BikeDashboardPlus)
+        bdpath=$(<~/BikeDashboardPlus.txt);
         echo "Bike Dashboard already installed in $bdpath";
         exit 0;
     fi;
@@ -116,8 +116,8 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     printf "$1" >> BikeDashboardPlus/raspberrypi/port;
 
     # put BikeDashboardPlus in home folder to indicate that it was installed
-    touch ~/BikeDashboardPlus
-    echo "$PWD/BikeDashboardPlus" >> ~/BikeDashboardPlus;
+    touch ~/BikeDashboardPlus.txt
+    echo "$PWD/BikeDashboardPlus" >> ~/BikeDashboardPlus.txt;
 
     duration=$(( SECONDS - start ));
     echo "Installation finished in $duration seconds. Now deleting install.bash.";

@@ -56,7 +56,7 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 2. Make a backup of /etc/rc.local: `sudo cp /etc/rc.local /etc/rc_backup.local`
 3. Edit /etc/rc.local
 - Type `sudo nano /etc/rc.local`
-- Scroll down. Type in `bash /path/to/BikeDashboardPlus/run.bash &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots.
+- Scroll down. Type in `bash /path/to/BikeDashboardPlus/run.bash &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus.txt`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots.
 - Save and exit: Press ^X (Control-X), and then Y, then enter.
 
 ![rc_local_edit.png](../img/rc_local_edit.png)
@@ -79,7 +79,7 @@ To re-enable it, just type that line back into `/etc/rc.local` at the same place
 
 1. Disable the program (See "Disabling")
 2. `cd` into the directory you installed BikeDashboardPlus in.
-- You can check by typing `cat ~/BikeDashboardPlus`
+- You can check by typing `cat ~/BikeDashboardPlus.txt`
 3. Type `rm -rf BikeDashboardPlus` to delete the folder and all of its contents.
-4. Type `rm ~/BikeDashboardPlus`
+4. Type `rm ~/BikeDashboardPlus.txt`
 5. Reboot the Pi: `sudo reboot`
