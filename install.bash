@@ -10,11 +10,10 @@ if [[ "$1 " == " " ]];
     exit 1;
 fi;
 
-read -p "This will install BikeDashboardPlus on your current directory. From now on, __main__.py will be activated when bash activates. If bash is not your default shell, type in 'chsh -s /bin/bash/'. Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1;
+read -p "This will install BikeDashboardPlus on your current directory (~ 29 megabytes). Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 0;
 
 if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
-    cp install.bash install_backup.bash;
 
     # check if Bike Dashboard is already installed elsewhere
     if (find ~ -iname BikeDashboardPlus);
@@ -44,7 +43,6 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     echo "Cloning repository...";
     if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git && rm -rf BikeDashboardPlus/.git);
         then
-        rm BikeDashboardPlus/install.bash || true;
         echo "Cloned code repository.";
     else
         echo "Installation failed: Failed to clone repository.";
