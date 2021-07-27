@@ -1,10 +1,11 @@
 import datetime
 import subprocess
-import time
 import threading
+import time
 
 import Adafruit_SSD1306
 import requests
+import serial
 from gpiozero import Button
 from PIL import Image, ImageDraw, ImageFont
 
@@ -87,12 +88,38 @@ def shutdown_button() -> None:
     POWER_OFF_CMD = "sudo shutdown -h now"
     subprocess.call(POWER_OFF_CMD.split())
 
+def _check_components() -> bool:
+    """
+    Checks that all components are connected properly before starting the program.
+    """
+
+    try:
+        # check display
+        display = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+        display.begin()
+
+        # check serial port
+        pt = open("raspberrypi/port", 'r').read().strip()
+        ser = serial.Serial(pt, 115200)
+        ser.flush()
+    except OSError as e:
+        if (e.errno == 2):
+            print("Serial port could not be opened.")
+        elif (e.errno == 121):
+            print("OLED could not be initialized.")
+        return False
+
+    return True
+
 def main() -> None:
     global display, img, draw, font, b
 
     print(f"Started program at {datetime.datetime.now()}")
 
-    th1 = threading.Thread(target=shutdown_button, daemon=True)
+    if (not _check_components()):
+        quit(1)
+
+    th1 = threading.Thread(target=shutdown_button)
     th1.start()
 
     mode = None
