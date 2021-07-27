@@ -17,7 +17,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     cp install.bash install_backup.bash;
 
     # check if Bike Dashboard is already installed elsewhere
-    if find ~ -iname BikeDashboardPlus;
+    if (find ~ -iname BikeDashboardPlus);
         then
         bdpath=$(<~/BikeDashboardPlus)
         echo "Bike Dashboard already installed in $bdpath";
