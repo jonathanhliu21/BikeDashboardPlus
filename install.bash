@@ -10,21 +10,28 @@ if [[ "$1 " == " " ]];
     exit 1;
 fi;
 
-read -p "This will install BikeDashboardPlus on your current directory. From now on, __main__.py will be activated when bash activates. If bash is not your default shell, type in 'chsh -s /bin/bash/'. Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1;
+read -p "This will install BikeDashboardPlus on your current directory (~ 29 megabytes). Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 0;
 
 if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
-    cp install.bash install_backup.bash;
 
     # check if Bike Dashboard is already installed elsewhere
-    if grep -q "Bike Dashboard" ~/.bashrc;
+    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus"); ! [ "$v" = "" ] );
         then
-        echo "Bike Dashboard already installed. Check ~/.bashrc to see where.";
-        exit 1;
+        bdpath=$(<~/BikeDashboardPlus)
+        echo "Bike Dashboard already installed in $bdpath";
+        exit 0;
     fi;
 
     # remove file
     rm -rf BikeDashboardPlus || true;
+
+    # check if port exists
+    if ( v=$(find /dev -maxdepth 1 -wholename "$1"); [ "$v" = "" ] || ( ! [[ "$1" = "/dev/"* ]] ) );
+        then
+        echo "Port not found";
+        exit 1;
+    fi;
 
     # install GPS libraries
     echo "Installing GPS libraries...";
@@ -43,7 +50,6 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     echo "Cloning repository...";
     if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git && rm -rf BikeDashboardPlus/.git);
         then
-        rm BikeDashboardPlus/install.bash || true;
         echo "Cloned code repository.";
     else
         echo "Installation failed: Failed to clone repository.";
@@ -95,6 +101,9 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
         exit 1;
     fi;
 
+    # remove arduino-cli in case of conflict
+    rm -rf BikeDashboardPlus/bin
+
     # add tracking folder
     mkdir BikeDashboardPlus/tracking; 
 
@@ -106,17 +115,12 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     touch BikeDashboardPlus/raspberrypi/port;
     printf "$1" >> BikeDashboardPlus/raspberrypi/port;
 
-    # edit .bashrc so it source calls run.bash on startup.
-    # Copies bashrc. When installing, it will mv bashrc_backup to bashrc, replacing bashrc's contents with bashrc_backup's
-    cp ~/.bashrc ~/.bashrc_backup;
-    
-    # Adds script to run program into .bashrc so the program runs whenever bash starts up.
-    printf "# Bike Dashboard \n" >> ~/.bashrc;  
-    printf "source $PWD/BikeDashboardPlus/env/bin/activate \n" >> ~/.bashrc;
-    printf "source $PWD/BikeDashboardPlus/run.bash \n" >> ~/.bashrc;
+    # put BikeDashboardPlus in home folder to indicate that it was installed
+    touch ~/BikeDashboardPlus
+    echo "$PWD/BikeDashboardPlus" >> ~/BikeDashboardPlus;
 
     duration=$(( SECONDS - start ));
-    echo "Installation finished in $duration seconds. Reboot the pi to let it take effect. Now deleting install.bash.";
+    echo "Installation finished in $duration seconds. Now deleting install.bash.";
 
     # remove itself
     rm -- "$0";

@@ -44,7 +44,7 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
     curl -s https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/install.bash -o install.bash
     ```
 
-    After running this, you will have to figure out what serial port your Arduino. Type `ls -l /dev` to see all serial ports. The port for the Arduino should be `ttyUSB*` or `ttyACM*`. The best way to check which port the Arduino is located on is to plug in the Arduino, take note of the ports that are `ttyUSB*` or `ttyACM*`, then unplug the Arduino, then see which of those ports disappeared. That port would be the Arduino.
+    After running this, you will have to figure out the serial port of your Arduino. Type `ls -l /dev` to see all serial ports. The port for the Arduino should be `ttyUSB*` or `ttyACM*`. The best way to check which port the Arduino is located on is to plug in the Arduino, take note of the ports that are `ttyUSB*` or `ttyACM*`, then unplug the Arduino, and see which of those ports disappeared. That port would be the Arduino.
 
     After getting the path to the serial port (ex `/dev/ttyUSB0` or `/dev/ttyACM0`), type this command in:
     
@@ -53,12 +53,10 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
     ```
     Replace `/dev/port` with the actual path to the serial port. The installation process should take around 1-2 minutes on a Raspberry Pi 4 and around 8-10 minutes on a Raspberry Pi Zero.
 
-    **This will edit ~/.bashrc, running the program whenever you start bash, so if you start the terminal, make sure to type ^C (control-C) to exit out of the program.**
-
 2. Make a backup of /etc/rc.local: `sudo cp /etc/rc.local /etc/rc_backup.local`
 3. Edit /etc/rc.local
 - Type `sudo nano /etc/rc.local`
-- Scroll down. Type in `bash &` on the line that is before `exit 0`. **Make sure you type it before** `exit 0` **, and you type in the ampersand (&) or the Pi will not boot.**
+- Scroll down. Type in `bash /path/to/BikeDashboardPlus/run.bash &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots.
 - Save and exit: Press ^X (Control-X), and then Y, then enter.
 
 ![rc_local_edit.png](../img/rc_local_edit.png)
@@ -67,29 +65,21 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
 
 From now on, the program should immediately run whenever you turn on and boot up your Raspberry Pi.
 
-## What if I want to open my terminal? (Disabling) 
-This prevents the program from running whenever you start up your terminal on your Raspberry Pi.
+## Disabling
+This prevents the program from running whenever you start up your Raspberry Pi.
 
-1. When you open the terminal, press ^C (Control-C) **immediately**.
-2. Run this command: `nano ~/.bashrc`
-3. Scroll down and remove the following lines from ~/.bashrc.
-```bash
-# Bike Dashboard 
-source /path/to/BikeDashboardPlus/env/bin/activate
-source /path/to/BikeDashboardPlus/run.bash
-```
+1. Type `sudo nano /etc/rc.local`
+2. Delete the line that you added when installing (shown in the image above).
+3. Save and exit: Press ^X (Control-X), and then Y, then enter.
+4. Reboot the Pi: `sudo reboot`.
 
-![bashrc_edit.png](../img/bashrc_edit.png)
-
-4. Press ^X (Control-X), then Y, then enter to save and exit.
-5. Reboot the Pi: `sudo reboot`
+To re-enable it, just type that line back into `/etc/rc.local` at the same place.
     
 ## Uninstalling
 
 1. Disable the program (See "Disabling")
-2. Remove the `bash` command from /etc/rc.local by typing in `sudo nano /etc/rc.local`
-3. Delete the `bash &` line you wrote when installing.
-4. Save and exit (Press ^X then Y then enter)
-5. `cd` into the directory you installed BikeDashboardPlus in.
-6. Type `rm -rf BikeDashboardPlus` to delete the folder and all of its contents.
-7. Reboot the Pi: `sudo reboot`
+2. `cd` into the directory you installed BikeDashboardPlus in.
+- You can check by typing `cat ~/BikeDashboardPlus`
+3. Type `rm -rf BikeDashboardPlus` to delete the folder and all of its contents.
+4. Type `rm ~/BikeDashboardPlus`
+5. Reboot the Pi: `sudo reboot`
