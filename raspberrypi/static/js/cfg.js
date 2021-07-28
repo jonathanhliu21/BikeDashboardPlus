@@ -517,7 +517,7 @@ const cfgs = [
 
 // put configs on DOM
 new Vue({
-  el: "#root",
+  el: "#cfg-table",
   delimiters: ["[[", "]]"],
   data: {
     cfgs: cfgs,
@@ -527,7 +527,7 @@ new Vue({
     allSatisfy: function(){
       // checks that all values are in range before letting user submit
       // prevents error in python when in bike mode
-      for (let i = 0; i < 5; i++){
+      for (let i = 0; i < this.cfgs.length; i++){
         if (!this.cfgs[i].acpt.includes(this.msg[i])) return true;
       }
       return false;

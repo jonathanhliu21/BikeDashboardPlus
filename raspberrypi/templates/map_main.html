@@ -2,14 +2,13 @@
 
 {% block body %}
 
-Choose the track path you want to view. <br>
+<div class="cfg-table">
+    Choose the track path you want to view. <br>
 
-<a href="/map/combine">Combine maps here</a> <br><br>
+    {% for i in range(filenames[0] | length) %}
+    <a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }} UTC</a> <br>
+    {% endfor %}
 
-{% for i in range(filenames[0] | length) %}
-<a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }}</a> <br>
-{% endfor %}
-
-<a href="/">Go back</a>
+</div>
 
 {% endblock %}
