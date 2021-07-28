@@ -160,7 +160,7 @@ def main() -> None:
     # init python PIL
     img = Image.new('1', (display.width, display.height))
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("raspberrypi/fonts/arial.ttf", 12)
+    font = ImageFont.truetype("raspberrypi/fonts/Gidole-Regular.ttf", 12)
 
     # draw setup text
     draw.text((0, 0), "Setup", font=font, fill=255)

@@ -230,7 +230,7 @@ def disp_th() -> None:
     img = Image.new('1', (display.width, display.height))
     drawing = ImageDraw.Draw(img)
 
-    FONTFILE = "raspberrypi/fonts/arial.ttf"
+    FONTFILE = "raspberrypi/fonts/Gidole-Regular.ttf"
     fonts = [
         ImageFont.truetype(FONTFILE, 15),
         ImageFont.truetype(FONTFILE, 45),
