@@ -1,13 +1,18 @@
 # Making this project yourself
 [Back to README](/README.md)
 
+This page is for people who are interested in making a Bike Dashboard with their own Raspberry Pi. The schematics and designs shown are what works best for me and my bike and may not work for you, so feel free to edit the code, the schematics, and the design for the case and mount. 
+
 ## Parts needed
 
 ## Schematic
 ![bd_schematic.png](../img/bd_schematic.png)
 
+I did not design a PCB for this schematic. Instead, I soldered all of these components onto a prototype PCB, which was hard and time-consuming. I may design a custom PCB if I come back to this project.
 
 ## 3D Printing
+
+More information on 3D Printing and the case/mount design can be found [here](https://github.com/jonyboi396825/BikeDashboardPlus/tree/master/hardware/models).
 
 ## Installation
 
