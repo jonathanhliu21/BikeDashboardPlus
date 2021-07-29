@@ -22,11 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from copy import deepcopy
 import json
 import os
+from copy import deepcopy
 
-from flask import Flask, redirect, render_template, request
+import pytz
+from flask import Flask, jsonify, redirect, render_template, request
 
 app = Flask(__name__)
 
@@ -65,6 +66,9 @@ def cfg_saved_page():
 def tzs_page():
     return render_template("tzs.html")
 
+@app.route("/tzs/raw")
+def tzs_raw_page():
+    return jsonify(pytz.common_timezones)
 
 @app.route("/map")
 def map_page():

@@ -158,7 +158,7 @@ function handle_track_data(s, unit){
     var mymap = L.map('mapid').setView(start_cor.trim().split(","), 15);
 
     L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | <a href="https://www.openstreetmap.org/fixthemap">Report a problem</a>',
         minZoom: 1,
         maxZoom: 19,
         tileSize: 512,
