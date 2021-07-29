@@ -22,11 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from copy import deepcopy
 import json
 import os
+from copy import deepcopy
 
-from flask import Flask, redirect, render_template, request
+import pytz
+from flask import Flask, jsonify, redirect, render_template, request
 
 app = Flask(__name__)
 
@@ -65,6 +66,9 @@ def cfg_saved_page():
 def tzs_page():
     return render_template("tzs.html")
 
+@app.route("/tzs/raw")
+def tzs_raw_page():
+    return jsonify(pytz.common_timezones)
 
 @app.route("/map")
 def map_page():
@@ -87,6 +91,7 @@ def map_page():
 def map_file_page(f_name) -> None:
     # displays maps themselves
 
+    # get track files and contents
     filenames = next(os.walk("tracking"), (None, None, []))[2]
     if (f_name not in filenames):
         return ("Track file not found", 400)
@@ -95,10 +100,18 @@ def map_file_page(f_name) -> None:
     track_str = f.read()
     f.close()
 
+    # see if track file is valid
+    track_arr = track_str.rstrip().split('\n')
+    while (len(track_arr) > 0 and (track_arr[-1] == "PAUSED" or track_arr[-1] == "")):
+        track_arr.pop()
+    
+    is_valid = len(track_arr) > 0
+
+    # get cfg units
     f = open("raspberrypi/cfg.json", 'r')
     unit = json.load(f)["UNT"]
 
-    return render_template("map.html", tracking=track_str, unit=unit)
+    return render_template("map.html", tracking=track_str, unit=unit, valid=is_valid)
 
 @app.route("/map/combine", methods=["GET", "POST"])
 def combine_map_page():

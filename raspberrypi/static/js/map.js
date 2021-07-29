@@ -108,19 +108,18 @@ function conv_sm_dist_unit(dist, unit){
     }
 }
 
-function handle_track_data(s, unit){
+function handle_track_data(s, unit, is_valid){
     // takes in file string and cfg unit from flask jinja
 
+    is_valid = (is_valid == "True" ? true : false);
     var arr = s.trimEnd().split("\n");
-    // if last element is "PAUSED"
-    while (arr.length > 0 && (arr[arr.length-1] === "PAUSED" || arr[arr.length-1] === "")) arr.pop();
 
     // put delete button on DOM and put msg if the file has data error
     new Vue({
         el: "#data_err",
         delimiters: ["[[", "]]"],
         data: {
-            text: (arr.length <= 0 ? "See weird text? No map? That's because there is a data error. Consider deleting the file." : "")     
+            text: (is_valid ? "" : "There is an error within this track file. Consider deleting it:")     
         },
         methods: {
             // warns user if they actually want to delete file
@@ -144,7 +143,7 @@ function handle_track_data(s, unit){
     });
 
     // data error = file has only "PAUSED" or is empty, and has no coordinates
-    if (arr.length <= 0){
+    if (!is_valid){
         return;
     }
 
@@ -158,7 +157,7 @@ function handle_track_data(s, unit){
     var mymap = L.map('mapid').setView(start_cor.trim().split(","), 15);
 
     L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | <a href="https://www.openstreetmap.org/fixthemap">Report a problem</a>',
         minZoom: 1,
         maxZoom: 19,
         tileSize: 512,
