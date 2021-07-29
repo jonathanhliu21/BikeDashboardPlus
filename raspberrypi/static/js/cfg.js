@@ -57,7 +57,7 @@ axios
       ),
       new Cfg(
         "TMZ",
-        "Your time zone. Must be a valid name from the tz database.",
+        "Your time zone. Copy and paste from the tz database:",
         "America/Los_Angeles",
         res.data
       ),
