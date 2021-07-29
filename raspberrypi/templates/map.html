@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %} 
+
+{% block head %}
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -10,8 +12,11 @@
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""
 ></script>
-{% endblock %} {% block body %}
+{% endblock %} 
 
+{% block body %}
+
+{% if valid %}
 <div id="mapid" class="map"></div>
 
 <div id="dist" class="cfg-table">
@@ -26,6 +31,7 @@
     [[i]] 
   </div>
 </div>
+{% endif %}
 
 <div id="data_err" class="dataerr cfg-table">
   [[text]]
@@ -36,6 +42,6 @@
 
 <script src="{{url_for('static', filename='js/map.js')}}"></script>
 <script>
-  handle_track_data(`{{tracking}}`, "{{unit}}");
+  handle_track_data(`{{tracking}}`, "{{unit}}", "{{valid}}");
 </script>
 {% endblock %}
