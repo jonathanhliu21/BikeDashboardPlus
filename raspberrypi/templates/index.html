@@ -8,24 +8,9 @@
 {% block body %}
     <div id="root" class="cfg-table">
         <h1>BikeDashboardPlus</h1>
-        <h6>Version: {{v}}</h6>
         <p>
             This is the website for configuring your Bike Dashboard and viewing your maps from tracking.
         </p>
-
-        {% if need_update %}
-        <div id="update-text">
-            <span v-if="!updating && !err">There is a newer version of Bike Dashboard Plus.</span>
-            <a href="#" @click="update(); updating=true;" v-if="!updating && !err">Click here to update.</a>
-            <span v-if="updating && !err">This may take a while (~8 minutes). After that, you should see the OLED on the Bike Dashboard start up again.</span>
-            <span v-if="err">
-                There has been an error updating. Try again. 
-                If that does not work, then manually delete the file on the Raspberry Pi and install the latest version again.
-            </span>
-        </div>
-        <script src=" {{url_for('static', filename='js/index.js')}} "></script>
-        {% endif %}
-
         <p>
             To learn more about this project and how it works, refer to the <a href="https://github.com/jonyboi396825/BikeDashboardPlus" target="_blank">Github Repository</a>.
         </p>
@@ -39,5 +24,6 @@
         </p>
     </div>
 
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
     
 {% endblock %}
