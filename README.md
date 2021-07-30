@@ -12,7 +12,11 @@ Over my spring break in April 2021, I made a bike dashboard ([Project descriptio
 
 ## Problems that still occur
 
+The bugs are listed below. I will try my best to fix most of them, delete them from this list, and create a new release each time I do so. However, some may be too hard or too time-consuming, or they may require a major change (e.g. a complete rewrite in code or a complete redesign), so they will be fixed in the next major release of Bike Dashboard.
+
 ## Upgrade ideas
+
+I will try to implement these enhancements as long as they are not a major change (e.g. a complete rewrite in code, a complete redesign of the mounts and case, needing different parts, or a change in the schematics), or they are not too time consuming to implement (I have a very busy schedule). They will be released as features in a minor release.
 
 ## Making this project yourself
 
