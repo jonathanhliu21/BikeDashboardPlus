@@ -20,51 +20,25 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 */
 
-.cfgerr{
-    border: 3px solid red;
-}
-
-.cfgerrtxt{
-    font-size: small;
-    color: red;
-    margin: 0;
-    border: 0;
-    padding: 0;
-}
-
-.map{
-    height: 50vh;
-    margin:20px;
-}
-
-.disttext{
-    font-size: medium;
-    color: blue;
-}
-
-.dataerr{
-    font-size:large;
-    color: red;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-#navbar-main{
-    padding-left:20px;
-    padding-right:20px
-}
-
-.cfg-table{
-    margin:20px;
-}
-
-.btn-home{
-    margin-top:5px;
-    margin-bottom:5px;
-}
-
-#update-text{
-    font-size:large;
-    color:red;
-}
+new Vue({
+    el: "#update-text",
+    delimiters: ["[[", "]]"],
+    data: {
+        updating: false,
+        err: false
+    },
+    methods: {
+        update: function(){
+            axios.post("/", {})
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                this.err = true;
+            });
+        }
+    }
+});
