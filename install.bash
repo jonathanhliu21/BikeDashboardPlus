@@ -39,7 +39,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 
 
     # check if Bike Dashboard is already installed elsewhere
-    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus.txt"); ! [ "$v" = "" ] );
+    if ( v=$(find ~ -maxdepth 1 -iname "BikeDashboardPlus.txt"); ! [ "$v" = "" ] && [ "$2" = "" ] );
         then
         bdpath=$(<~/BikeDashboardPlus.txt);
         echo "Bike Dashboard already installed in $bdpath";
