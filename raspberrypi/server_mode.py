@@ -24,27 +24,17 @@ SOFTWARE.
 
 import json
 import os
-import subprocess
 from copy import deepcopy
 
 import pytz
-import requests
 from flask import Flask, jsonify, redirect, render_template, request
-
-need_update = False
-cur_version = open("VERSION", 'r').read().strip()
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
-def home_page():
-    global need_update, cur_version
 
-    if (request.method == "POST"):
-        subprocess.run("bash update.bash".split())
-        return ("Successfully updated", 200)
-    else:
-        return render_template("index.html", need_update=need_update, success=True, v=cur_version)
+@app.route("/")
+def home_page():
+    return render_template("index.html")
 
 
 @app.route("/cfg", methods=["GET", "POST"])
@@ -67,20 +57,20 @@ def cfg_page():
         return render_template("cfg.html")
 
 
-@app.route("/cfg_saved", methods=["GET"])
+@app.route("/cfg_saved")
 def cfg_saved_page():
     return render_template("cfg_saved.html")
 
 
-@app.route("/tzs", methods=["GET"])
+@app.route("/tzs")
 def tzs_page():
     return render_template("tzs.html")
 
-@app.route("/tzs/raw", methods=["GET"])
+@app.route("/tzs/raw")
 def tzs_raw_page():
     return jsonify(pytz.common_timezones)
 
-@app.route("/map", methods=["GET"])
+@app.route("/map")
 def map_page():
     # displays links to files of maps
     
@@ -97,7 +87,7 @@ def map_page():
 
     return render_template("map_main.html", filenames=filenames)
 
-@app.route("/map/<f_name>", methods=["GET"])
+@app.route("/map/<f_name>")
 def map_file_page(f_name) -> None:
     # displays maps themselves
 
@@ -174,15 +164,7 @@ def delete_map_endpt(f_name):
     return ("Successfully removed", 200)
 
 
-def check_for_update() -> None:
-    global need_update, cur_version
-
-    response = requests.get("https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/VERSION")
-    need_update = not (response.text == cur_version)
-
-
 def main() -> None:
-    check_for_update()
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 
