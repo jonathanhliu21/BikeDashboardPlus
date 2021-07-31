@@ -22,18 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from copy import deepcopy
 import json
 import os
+from copy import deepcopy
 
-from flask import Flask, redirect, render_template, request
+import pytz
+import requests
+from flask import Flask, jsonify, redirect, render_template, request
+
+need_update = False
+cur_version = open("VERSION", 'r').read().strip()
 
 app = Flask(__name__)
 
-
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home_page():
-    return render_template("index.html")
+    global need_update, cur_version
+
+    return render_template("index.html", need_update=need_update, success=True, v=cur_version)
 
 
 @app.route("/cfg", methods=["GET", "POST"])
@@ -56,17 +62,20 @@ def cfg_page():
         return render_template("cfg.html")
 
 
-@app.route("/cfg_saved")
+@app.route("/cfg_saved", methods=["GET"])
 def cfg_saved_page():
     return render_template("cfg_saved.html")
 
 
-@app.route("/tzs")
+@app.route("/tzs", methods=["GET"])
 def tzs_page():
     return render_template("tzs.html")
 
+@app.route("/tzs/raw", methods=["GET"])
+def tzs_raw_page():
+    return jsonify(pytz.common_timezones)
 
-@app.route("/map")
+@app.route("/map", methods=["GET"])
 def map_page():
     # displays links to files of maps
     
@@ -83,10 +92,11 @@ def map_page():
 
     return render_template("map_main.html", filenames=filenames)
 
-@app.route("/map/<f_name>")
+@app.route("/map/<f_name>", methods=["GET"])
 def map_file_page(f_name) -> None:
     # displays maps themselves
 
+    # get track files and contents
     filenames = next(os.walk("tracking"), (None, None, []))[2]
     if (f_name not in filenames):
         return ("Track file not found", 400)
@@ -95,10 +105,18 @@ def map_file_page(f_name) -> None:
     track_str = f.read()
     f.close()
 
+    # see if track file is valid
+    track_arr = track_str.rstrip().split('\n')
+    while (len(track_arr) > 0 and (track_arr[-1] == "PAUSED" or track_arr[-1] == "")):
+        track_arr.pop()
+    
+    is_valid = len(track_arr) > 0
+
+    # get cfg units
     f = open("raspberrypi/cfg.json", 'r')
     unit = json.load(f)["UNT"]
 
-    return render_template("map.html", tracking=track_str, unit=unit)
+    return render_template("map.html", tracking=track_str, unit=unit, valid=is_valid)
 
 @app.route("/map/combine", methods=["GET", "POST"])
 def combine_map_page():
@@ -151,7 +169,15 @@ def delete_map_endpt(f_name):
     return ("Successfully removed", 200)
 
 
+def check_for_update() -> None:
+    global need_update, cur_version
+
+    response = requests.get("https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/VERSION")
+    need_update = not (response.text == cur_version)
+
+
 def main() -> None:
+    check_for_update()
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 

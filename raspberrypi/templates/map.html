@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %} 
+
+{% block head %}
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -10,27 +12,28 @@
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""
 ></script>
-{% endblock %} {% block body %}
+{% endblock %} 
 
+{% block body %}
+
+{% if valid %}
 <div id="mapid" class="map"></div>
 
-<div id="dist">
+<div id="dist" class="cfg-table">
   You travelled a total distance of
   <span class="disttext">[[ distance1 ]] [[ unit1 ]]</span> or
   <span class="disttext">[[ Math.floor(distance1)]] [[ unit1 ]] and [[ distance2 ]] [[ unit2 ]]</span>
 </div>
 
-<a href="/map">Back to viewing maps</a> <br>
-<a href="/map/combine">Back to combining maps</a>
-
-<div id="raw_data">
+<div id="raw_data" class="cfg-table">
   <h1>Raw tracking data</h1>
   <div v-for="i in arr_">
     [[i]] 
   </div>
 </div>
+{% endif %}
 
-<div id="data_err" class="dataerr">
+<div id="data_err" class="dataerr cfg-table">
   [[text]]
   <button @click="warn()">
     Delete this file
@@ -39,6 +42,6 @@
 
 <script src="{{url_for('static', filename='js/map.js')}}"></script>
 <script>
-  handle_track_data(`{{tracking}}`, "{{unit}}");
+  handle_track_data(`{{tracking}}`, "{{unit}}", "{{valid}}");
 </script>
 {% endblock %}

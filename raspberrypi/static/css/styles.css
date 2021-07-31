@@ -36,6 +36,7 @@ SOFTWARE.
 
 .map{
     height: 50vh;
+    margin:20px;
 }
 
 .disttext{
@@ -47,4 +48,23 @@ SOFTWARE.
     font-size:large;
     color: red;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#navbar-main{
+    padding-left:20px;
+    padding-right:20px
+}
+
+.cfg-table{
+    margin:20px;
+}
+
+.btn-home{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#update-text{
+    font-size:large;
+    color:red;
 }

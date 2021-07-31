@@ -6,11 +6,31 @@
 {% endblock %}
 
 {% block body %}
-    <div id="root">
-        <a href="/cfg">Click here for configurations</a> <br>
-        <a href="/map">Click here for map</a>
+    <div id="root" class="cfg-table">
+        <h1>BikeDashboardPlus</h1>
+        <h6>Version: {{v}}</h6>
+        <p>
+            This is the website for configuring your Bike Dashboard and viewing your maps from tracking.
+        </p>
+
+        {% if need_update %}
+        <div id="update-text">
+            There is a newer version of Bike Dashbaord. <a href="https://github.com/jonyboi396825/BikeDashboardPlus/blob/develop/docs/pages/update_instructions.md" target="_blank">Go here to update</a>
+        </div>
+        {% endif %}
+
+        <p>
+            To learn more about this project and how it works, refer to the <a href="https://github.com/jonyboi396825/BikeDashboardPlus" target="_blank">Github Repository</a>.
+        </p>
+        <a href="/cfg" class="btn btn-primary btn-home">Click here for configurations</a>
+        <a href="/map" class="btn btn-primary btn-home">Click here for viewing maps</a>
+        <a href="/map/combine" class="btn btn-primary btn-home">Click here for combining track paths</a>
+
+        <p>
+            If there are any problems with the website itself, open an <a href="https://github.com/jonyboi396825/BikeDashboardPlus/issues" target="_blank">issue</a> with the "bug" label. <br>
+            If you have any suggestions, open an <a href="https://github.com/jonyboi396825/BikeDashboardPlus/issues" target="_blank">issue</a> with the "enhancement" label.
+        </p>
     </div>
 
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
     
 {% endblock %}

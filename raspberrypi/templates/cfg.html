@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div id="root">
+    <div class="cfg-table" id="cfg-table">
         <form action="/cfg" method="post">
-            <table>
+            <table class="table table-bordered">
                 <tr>
                     <th>Configuration</th>
                     <th>Description</th>
@@ -28,5 +28,4 @@
     </div>
 
     <script src="{{url_for('static', filename='js/cfg.js')}}"></script>
-    <a href="/">Go back</a>
 {% endblock %}
