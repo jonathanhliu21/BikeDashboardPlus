@@ -8,9 +8,17 @@
 {% block body %}
     <div id="root" class="cfg-table">
         <h1>BikeDashboardPlus</h1>
+        <h6>Version: {{v}}</h6>
         <p>
             This is the website for configuring your Bike Dashboard and viewing your maps from tracking.
         </p>
+
+        {% if need_update %}
+        <div id="update-text">
+            There is a newer version of Bike Dashbaord. <a href="https://github.com/jonyboi396825/BikeDashboardPlus/blob/develop/docs/pages/update_instructions.md" target="_blank">Go here to update</a>
+        </div>
+        {% endif %}
+
         <p>
             To learn more about this project and how it works, refer to the <a href="https://github.com/jonyboi396825/BikeDashboardPlus" target="_blank">Github Repository</a>.
         </p>
@@ -24,6 +32,5 @@
         </p>
     </div>
 
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
     
 {% endblock %}
