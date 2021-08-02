@@ -4,7 +4,7 @@ By updating, you are deleting and re-installing Bike Dashboard in the same direc
 
 1. `ssh` into your pi: 
     ```
-    ssh pi@your.pi.ip
+    ssh pi@your.pi.IP
     ```
 
 2. `cd` into your BikeDashboardPlus directory, then `cd` into the parent directory (by typing `cd ..`). You can check the Bike Dashboard directory by typing `cat ~/BikeDashboardPlus.txt` **Make sure you are not *in* the BikeDashboardPlus directory, but in the parent directory.** This means when you type `ls -l`, you should be able to see "BikeDashboardPlus" in the output. If you don't, you are in the wrong directory. 
