@@ -48,7 +48,7 @@ def handle_bike_mode() -> None:
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Oh no!", fill=255, font=font)
-        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress to try again.", fill=255, font=font)  # print text to image buffer
+        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
         time.sleep(1)
@@ -164,7 +164,7 @@ def main() -> None:
 
     # draw setup text
     draw.text((0, 0), "Setup", font=font, fill=255)
-    draw.multiline_text((0, 16), "Press button on RPi \nto enter server mode. \nOtherwise, do nothing.", font=font, fill=255)
+    draw.multiline_text((0, 16), "Press button 1 on RPi \nto enter server mode. \nOtherwise, do nothing.", font=font, fill=255)
 
     display.image(img)
     display.display()
