@@ -50,7 +50,7 @@ uint8_t led, dtm, bc1, bc2, bc3;
 
 // states of buttons (cur state, prev state)
 bool s1, s2, ps1, ps2; 
-uint8_t unit; // 0 = mph, 1 = kph, 2 = m/s
+uint8_t unit; // 0 = mph, 1 = km/h, 2 = m/s
 
 // blinking the LED
 ull blinkPrevMillis = 0;
@@ -243,7 +243,7 @@ int convToUnit(int sp){
     */
 
     if (unit == 0) return sp; // mph
-    else if (unit == 1) return ((int) (sp/1.0)*1.609); // kph
+    else if (unit == 1) return ((int) (sp/1.0)*1.609); // km/h
     else return ((int) (sp/1.0)/2.237); // mph
 }
 
