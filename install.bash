@@ -71,7 +71,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
 
     # clone repository
     echo "Cloning repository...";
-    if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git && rm -rf BikeDashboardPlus/.git);
+    if (git clone https://github.com/jonyboi396825/BikeDashboardPlus.git);
         then
         echo "Cloned code repository.";
     else
