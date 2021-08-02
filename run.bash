@@ -32,8 +32,8 @@ cd $DIR;
 # init venv
 source env/bin/activate
 
-# start python program
-python3 .;
+# start python program, redirect errors to errors.txt
+python3 . 2>> errors.txt && printf "Happened at $(date)\n\n" >> errors.txt;
 
 # deactivate venv if out of program
 deactivate;

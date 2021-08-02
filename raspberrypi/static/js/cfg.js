@@ -63,7 +63,7 @@ axios
       ),
       new Cfg(
         "UNT",
-        "The unit of speed you use. If the value is 0, then mph is used. If the value is 1, kph is used. If the value is 2, m/s is used. Value must be 0, 1, or 2.",
+        "The unit of speed you use. If the value is 0, then mph is used. If the value is 1, km/h is used. If the value is 2, m/s is used. Value must be 0, 1, or 2.",
         0,
         [0, 1, 2]
       ),
