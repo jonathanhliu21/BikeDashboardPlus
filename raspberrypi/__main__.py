@@ -35,8 +35,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 BUTTON_PIN = 17
 BUTTON_SH_PIN = 18
-CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py"
-CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py"
+CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py 2>> errors.txt && printf \"Happened at $(date)\\n\\n\" >> errors.txt;"
+CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py 2>> errors.txt && printf \"Happened at $(date)\\n\\n\" >> errors.txt;"
 
 def handle_bike_mode() -> None: 
     global display, img, draw, font, b
@@ -136,9 +136,9 @@ def _check_components() -> bool:
     return True
 
 def _get_pi_ip() -> str:
-    s_p = subprocess.Popen("hostname -I".split())
+    s_p = subprocess.Popen("hostname -I".split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = s_p.communicate()
-    return output.decode("utf-8")
+    return output.decode("utf-8").rstrip()
 
 def main() -> None:
     global display, img, draw, font, b
