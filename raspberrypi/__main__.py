@@ -135,6 +135,11 @@ def _check_components() -> bool:
 
     return True
 
+def _get_pi_ip() -> str:
+    s_p = subprocess.Popen("hostname -I".split())
+    output, err = s_p.communicate()
+    return output.decode("utf-8")
+
 def main() -> None:
     global display, img, draw, font, b
 
@@ -185,13 +190,22 @@ def main() -> None:
 
     # display if button pressed/button not pressed
     if (b.is_pressed):
+        
+        website_name = "127.0.0.1"
+        # checks for internet connection 
+        try:
+            requests.get("https://google.com")
+            website_name = _get_pi_ip()
+        except requests.exceptions.ConnectionError:
+            pass
+
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
-        draw.text((0, 16), "In server mode \nVisit website: \nraspberrypi.local:5000", fill=255, font=font)
+        draw.text((0, 16), f"In server mode \nVisit website: \n{website_name}:7123", fill=255, font=font)
         display.image(img)
         display.display()
         time.sleep(1)
-
+       
         mode = "server"
     else:
         draw.rectangle((0, 0, 128, 128), fill=0)
