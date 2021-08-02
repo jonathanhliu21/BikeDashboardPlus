@@ -3,11 +3,18 @@
 - The make-yourself page is [here](docs/pages/make_yourself.md).  
 - [How to use your Bike Dashboard](docs/pages/usage.md)
 
+![BD_finished]()  
+
 ## Description
 
 Over my spring break in April 2021, I made a "Bike Dashboard" ([Project description](https://create.arduino.cc/projecthub/jonathanhliu21/a-dashboard-for-a-bike-unfinished-6dc0cb), [Github Repo](https://github.com/jonyboi396825/BikeDashboard)) using an Arduino Nano, an LCD screen, and a GPS. I made this to make finding out the time while riding a bike safer, and I wanted a safe way to track the route that I biked. I thought that pulling over my bike to check my phone for the time was inconvenient, and checking my phone while biking was dangerous. I was also interested in viewing the speed while biking.
 
 However, That design had many problems. I could not put that many features on it because the Nano did not have much memory. The speed on the LCD updated very slowly. The LCD screen was also very big and captured attention, which may have gotten my bike stolen. Lastly, even though it could track, I had no way of viewing it on a map. Because of these problems, I wanted a new design.
+
+<figure>
+    <img src="docs/img/bd_development.jpg" alt="bd_development.jpg" height="400px">
+    <figcaption>BikeDashboardPlus in development. The breadboard and Raspberry Pi on the bottom would be the central piece, and the breadboard on the top would be the handle piece.</figcaption>
+</figure>
 
 ## How it works
 
@@ -33,7 +40,7 @@ OSError on OLED: Because I was writing data to the OLED too quickly, after a few
 
 Other problems:
 - I accidentally soldered the purple LEDs with the white ones on the LED panel because they looked similar.
-- For the case, I bought wood too hard to be cut by a knife, so I had to use a saw instead, and it did not cut the wood perfectly. This made it very hard to assemble the case and glue everything together.
+- For the case, I bought wood too hard to be cut by a knife, so I had to use a saw instead, and it did not cut the wood perfectly. This made it very hard to assemble the case and glue everything together. Thanks to my dad for helping me cut the wood and designing the case and mount.
 
 ## Problems that still occur
 
@@ -58,6 +65,7 @@ I will try to implement these enhancements as long as they are not a major chang
 - Make the LED panel show more than just speed
 - Make a more intuitive configuration page
 - Put the Pi in "sleep" mode or alter the OS such that it will boot faster (takes ~2min currently)
+- Track speed and time in addition to distance and location
 
 ### Next major release
 - Remake BOM to include smaller parts and redesign model so everything will be in one small piece attached to the bike

@@ -1,14 +1,40 @@
 # Making this project yourself
-[Back to README](/README.md)
+[Back to README](/README.md)  
+[How to use the Bike Dashboard](docs/pages/usage.md)
 
 This page is for people who are interested in making a Bike Dashboard with their own Raspberry Pi. The schematics and designs shown are what works best for me and my bike and may not work for you, so feel free to edit the code, the schematics, and the design for the case and mount. 
 
 ## Parts needed
 
+These are the parts you need to buy to make this project. 
+
+### Electronics
+- Raspberry Pi Zero W
+- Arduino Nano
+- Neo-6M GPS module
+- 128x64 SSD1306 OLED display
+- 22 LEDs: 20 white, 1 red, 1 green
+- Tactile pushbutton switch
+- Breadboard (if you don't want to solder)
+- Perfboard (for a more permanent build)
+- Jumper wires
+- 2 10k ohm resistors
+- 2 220-330 ohm resistors
+
+### Case and mount
+It depends how you want to make it. For example, if you wanted to 3D print the case and the mount onto the bike, then you would need a 3D printer and filament. I used:
+- Plywood
+- X-acto knife
+- Saw
+- Hot glue, hot glue gun
+- Gorilla glue
+
 ## Schematic
 ![bd_schematic.png](../img/bd_schematic.png)
 
-I did not design a PCB for this schematic. Instead, I soldered all of these components onto a prototype PCB, which was hard and time-consuming. I may design a custom PCB if I come back to this project.
+If you do not feel like soldering, you can use a breadboard.
+
+I did not design a PCB for this schematic. Instead, I soldered all of these components onto a prototype PCB, which was hard and time-consuming. I may design a custom PCB if I come back to this project. Also, soldering the LED panel is optional as all information displayed on there will be displayed on the OLED.
 
 ## 3D Printing
 
