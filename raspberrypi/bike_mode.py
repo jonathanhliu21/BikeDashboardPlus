@@ -148,14 +148,16 @@ def tracker(lat: int, lng: int, tm: datetime.datetime) -> None:
 
 
 def conv_unit(val: int, unit: int) -> int:
+    # given in m/s
+
     assert(isinstance(unit, int) and unit >= 0 and unit < 3)
 
-    if (unit == 0):
+    if (unit == 0): # mph
+        return int((val/1.0)*2.237)
+    elif (unit == 1): # km/h
+        return int((val/1.0)*3.6)
+    else: # m/s
         return int(val)
-    elif (unit == 1):
-        return int((val/1.0)*1.609)
-    else:
-        return int((val/1.0)/2.237)
 
 
 def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
@@ -164,8 +166,8 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     draws data on screen according to plan doc
 
     data: {
-        "speed": x in mph
-        "unit": {0, 1, 2}; 0 = mph, 1 = kph, 2 = m/s
+        "speed": x in m/s
+        "unit": {0, 1, 2}; 0 = mph, 1 = km/h, 2 = m/s
         "datetime": datetime obj
         "mode": String of: {'D', '2', '3'}
         "track": String of: {'T', 'P', ''}
@@ -173,7 +175,7 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     }
     """
 
-    unit_to_str = ["mph", "kph", "m/s"]
+    unit_to_str = ["mph", "km/h", "m/s"]
 
     mode_font = fonts[0]
     sp_font = fonts[1]
@@ -295,7 +297,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 timezone = pytz.timezone(cur_tz)
                 d_localized = d_temp.astimezone(timezone)
 
-                # speed
+                # speed, given in m/s
                 speed = curdata["speed"]
 
                 send["GPS"] = [curdata["lat"], curdata["lon"], speed,
