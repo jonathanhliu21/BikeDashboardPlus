@@ -30,7 +30,10 @@ These are some major problems I ran into while working on this project.
 | The LED matrix couldn't light up 2 LEDs at once because I wired the circuit wrong. I originally wanted *n* LEDs to light up if I was going at speed *n*. | Instead of resoldering the entire LED matrix, which would have taken a long time, I changed the feature so that only one LED would light up at a time, and that LED would correspond to a certain speed. |
 | The light on the LED matrix would be very dim when it lit up. | This was caused by my code not checking if any LEDs in that row were being used, therefore lighting up 2 LEDs back and forth in quick succession, making the LED seem really dim. I added an `if` statement that would check if any LEDs were on in that row and turn them off before turning the current one on. |
 OSError on OLED: Because I was writing data to the OLED too quickly, after a few minutes, the program would raise an OSError and stop because the data would not be written to the OLED. | I tried experimenting with the amount of delay between writing data to the OLED and seeing how long it would last before raising an OSError. However, I realized I can catch the OSError and re-begin the OLED whenever it happens, which was a much more reliable solution. |
-| I accidentally soldered the purple LEDs with the white ones on the LED panel because they looked similar. | There wasn't really a fix except to resolder the LED panel, which I didn't have time for.
+
+Other problems:
+- I accidentally soldered the purple LEDs with the white ones on the LED panel because they looked similar.
+- For the case, I bought wood too hard to be cut by a knife, so I had to use a saw instead, and it did not cut the wood perfectly. This made it very hard to assemble the case and glue everything together.
 
 ## Problems that still occur
 
@@ -53,6 +56,7 @@ I will try to implement these enhancements as long as they are not a major chang
 - Continue tracking even if disconnected
 - Track the distance along with coordinates instead of calculating the distance after
 - Make the LED panel show more than just speed
+- Make a more intuitive configuration page
 - Put the Pi in "sleep" mode or alter the OS such that it will boot faster (takes ~2min currently)
 
 ### Next major release
