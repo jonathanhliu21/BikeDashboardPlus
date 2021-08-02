@@ -300,7 +300,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 # speed, given in m/s
                 speed = curdata["speed"]
 
-                send["GPS"] = [curdata["lat"], curdata["lon"], speed,
+                send["GPS"] = [curdata["lat"], curdata["lon"], conv_unit(speed, unit=display_dict["unit"]),
                                d_localized.month, d_localized.day, d_localized.hour, d_localized.minute]
 
                 # update what to display
