@@ -13,7 +13,8 @@ By updating, you are syncing your local main branch with the Github master branc
     ```
     git pull --rebase origin master
     ```
-    This will not delete your tracking or error files because they were put inside `.gitignore` when installing. Note that this will not work if you have uncommitted changes.
+    This will not delete your tracking or error files because they were put inside `.gitignore` when installing.   
+    Note that this command will not work if you have uncommitted changes.
 
 4. Reboot your Pi:
     ```

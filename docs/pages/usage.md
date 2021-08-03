@@ -2,7 +2,7 @@
 
 If you have not installed Bike Dashboard, [go here](/docs/pages/make_yourself.md).
 
-There are 2 modes to the Bike Dashboard: Bike mode, and server mode. Bike mode is the mode that you set when you are actually riding your bike. The OLED display will display time, speed, etc., and you are able to track your route. Server Mode sets up a server where you can configure your Bike Dashboard and where you can view the maps of your tracked routes.
+There are 2 modes to the Bike Dashboard: Bike mode, and server mode. Bike mode is the mode that you set when you are riding your bike. The OLED display will display time, speed, etc., and you can track your route. Server Mode sets up a server where you can configure your Bike Dashboard and where you can view the maps of your tracked routes.
 
 To turn the Bike Dashboard on, power on your Raspberry Pi and wait 30 seconds to 1 minute to let it boot up. 
 
@@ -17,13 +17,13 @@ After displaying some setup text, the OLED will display the things you will see 
 
 This is how the LED panel works and how the LEDs are numbered:  
 ![LED_panel_tutorial]()  
-Depending on your configuration which we will get to later, if you are going *x* mph, or *x* km/h, or *x* m/s, then LED *x* will light up. Or, if you have edited your LED configuration, then if you are going *2x* mph or *2x* km/h or *2x* m/s, then LED *x* will light up.
+If the configuration *LED* is 0, then LED *n* will light up if you are going *n* mph, km/h, or m/s. If *LED* is set to 1, then LED *n/2* will light up if you are going *n* mph, km/h, or m/s.
 
 To start tracking, press the button wired to pin D4 on the Arduino Nano. The green LED on the Arduino will light up and a "T" will show up on the bottom right of the OLED display to indicate that you are currently tracking. **Note that tracking is not possible if you are disconnected** i.e. the red LED is on or it says "M:D" on the OLED.
 
 Once you have started tracking, it will immediately write to a new track file. If you have started this by accident, don't worry, you can delete this later. 
 
-To pause tracking, press the button wired to pin D5 on the Arduino. Indicators that you have paused are the green LED blinking instead of staying constatly on and the OLED display a "P" on the bottom right corner. To resume, press the same button. 
+To pause tracking, press the button wired to pin D5 on the Arduino. Indicators that you have paused are the green LED blinking instead of staying constantly on and the OLED display a "P" on the bottom right corner. To resume, press the same button. 
 
 To end tracking, press the same button as the one you pressed when you started tracking. The green LED will turn off and there should be nothing displayed on the bottom right corner of the OLED. 
 
@@ -43,7 +43,7 @@ There are 3 options: the configuration page, the map page, and the combining pag
 The configuration page should look like this:
 ![cfg_page](/docs/img/bd_web_cfg.png)
 
-It is a table showing all the configurations, what they mean, and what value you have to enter. You have to enter the according value into the text box on the right column of the table. 
+It is a table showing all the configurations, what they mean, and what value you have to enter. You have to enter that value into the text box on the right column of the table. 
 
 For the time zone, you should copy and paste from the list in the link rather than typing it out as it is case sensitive and you have to type it out exactly like it is in the table.
 
@@ -62,7 +62,7 @@ If you see a message advising you to delete the file, then there was some error 
 
 The numbers under "Raw tracking data" should be rounded to the millionth digit and should not be as precise as shown above. That data was copied from Google Maps for testing.
 
-On the map, you should be able to see your route. There is a start marker, end marker, and multiple pause/resume markers depending on where you paused.
+On the map, you should be able to see your route. There are a start marker, an end marker, and multiple pause/resume markers depending on where you paused.
 
 On the bottom of the map, you should see how far you have travelled depending on your configuration.
 
@@ -74,7 +74,7 @@ If your GPS got disconnected whilst tracking, and you had to restart the trackin
 
 **Note that you cannot separate files after combining them.**
 
-Click the check boxes in the order you want to combine the files. You will see the order of the file numbers below so you can confirm your choices. 
+Click the checkboxes in the order you want to combine the files. You will see the order of the file numbers below so you can confirm your choices. 
 
 Click submit to combine the files.
 

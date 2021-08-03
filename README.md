@@ -18,7 +18,7 @@ However, That design had many problems. I could not put that many features on it
 
 ## How it works
 
-This new Bike Dashboard features a Raspberry Pi that gets the data from the GPS and puts it onto an OLED. It is connected to the Arduino via USB, and the Arduino controls the buttons that control route tracking (start/stop/pause tracking), and a 2x20 LED panel that can currently only display speed by lighting up a certain LED that corresponds to a number.
+This new Bike Dashboard features a Raspberry Pi that gets the data from the GPS and puts it onto an OLED. It is connected to the Arduino via USB, and the Arduino controls the buttons for route tracking (start/stop/pause tracking), and a 2x20 LED panel that can currently only display speed by lighting up a certain LED that corresponds to a number.
 
 The OLED displays speed, date and time, how well the GPS is connected (No fix, 2D fix, or 3D fix), and the state of tracking (tracking, paused, or not tracking). 
 
@@ -35,18 +35,20 @@ These are some major problems I ran into while working on this project.
 | Problem               | How I solved it                |
 |-----------------------|--------------------------------|
 | The LED matrix couldn't light up 2 LEDs at once because I wired the circuit wrong. I originally wanted *n* LEDs to light up if I was going at speed *n*. | Instead of resoldering the entire LED matrix, which would have taken a long time, I changed the feature so that only one LED would light up at a time, and that LED would correspond to a certain speed. |
-| The light on the LED matrix would be very dim when it lit up. | This was caused by my code not checking if any LEDs in that row were being used, therefore lighting up 2 LEDs back and forth in quick succession, making the LED seem really dim. I added an `if` statement that would check if any LEDs were on in that row and turn them off before turning the current one on. |
-OSError on OLED: Because I was writing data to the OLED too quickly, after a few minutes, the program would raise an OSError and stop because the data would not be written to the OLED. | I tried experimenting with the amount of delay between writing data to the OLED and seeing how long it would last before raising an OSError. However, I realized I can catch the OSError and re-begin the OLED whenever it happens, which was a much more reliable solution. |
+| The light on the LED matrix would be very dim when it lit up. | This was caused by my code not checking if any LEDs in that row were being used, therefore lighting up 2 LEDs back and forth in quick succession, making the LED seem dim. I added an `if` statement that would check if any LEDs were on in that row and turn them off before turning the current one on. |
+OSError on OLED: Because I was writing data to the OLED too quickly, after a few minutes, the program would raise an OSError and stop because the data would not be written successfully to the OLED. | I tried experimenting with the amount of delay between writing data to the OLED and seeing how long it would last before raising an OSError. However, I realized I can catch the error and re-begin the OLED, which was a much more reliable solution. |
+
 
 Other problems:
-- I accidentally soldered the purple LEDs with the white ones on the LED panel because they looked similar.
+- I accidentally soldered the purple LEDs with the white ones on the LED panel because they looked similar (they were both clear).
 - For the case, I bought wood too hard to be cut by a knife, so I had to use a saw instead, and it did not cut the wood perfectly. This made it very hard to assemble the case and glue everything together. Thanks to my dad for helping me cut the wood and designing the case and mount.
 
 ## Problems that still occur
 
 The bugs are listed below. I will try my best to fix most of them, delete them from this list, and create a new bug-fixing release each time I do so. However, some may take longer than others to fix.
 
-- Font sometimes becomes murky
+- The track files are in UTC rather than the local time zone
+- The shutdown button can be easily pressed so I sometimes accidentally shut down my RPi even when I don't mean to.
 
 ### Done
 - None yet
