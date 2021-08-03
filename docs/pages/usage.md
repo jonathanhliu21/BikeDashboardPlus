@@ -80,5 +80,5 @@ Click submit to combine the files.
 
 ### Shutting down
 
-Just like in bike mode, press the button wired to BCM pin 18 to shut the Pi down.
+Press the button wired to BCM pin 18 to shut the Pi down.
 
