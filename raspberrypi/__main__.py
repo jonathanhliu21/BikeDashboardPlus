@@ -1,26 +1,24 @@
-"""
-MIT License
+# MIT License
 
-Copyright (c) 2021 jonyboi396825
+# Copyright (c) 2021 jonyboi396825
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import datetime
 import subprocess
@@ -35,8 +33,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 BUTTON_PIN = 17
 BUTTON_SH_PIN = 18
-CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py"
-CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py"
+CMD_BIKE_MODE = "python3 raspberrypi/bike_mode.py 2>> errors.txt && printf \"Happened at $(date)\\n\\n\" >> errors.txt;"
+CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py 2>> errors.txt && printf \"Happened at $(date)\\n\\n\" >> errors.txt;"
 
 def handle_bike_mode() -> None: 
     global display, img, draw, font, b
@@ -48,7 +46,7 @@ def handle_bike_mode() -> None:
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Oh no!", fill=255, font=font)
-        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress to try again.", fill=255, font=font)  # print text to image buffer
+        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  # print text to image buffer
         display.image(img)
         display.display()
         time.sleep(1)
@@ -135,6 +133,11 @@ def _check_components() -> bool:
 
     return True
 
+def _get_pi_ip() -> str:
+    s_p = subprocess.Popen("hostname -I".split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, err = s_p.communicate()
+    return output.decode("utf-8").rstrip()
+
 def main() -> None:
     global display, img, draw, font, b
 
@@ -164,7 +167,7 @@ def main() -> None:
 
     # draw setup text
     draw.text((0, 0), "Setup", font=font, fill=255)
-    draw.multiline_text((0, 16), "Press button on RPi \nto enter server mode. \nOtherwise, do nothing.", font=font, fill=255)
+    draw.multiline_text((0, 16), "Press button 1 on RPi \nto enter server mode. \nOtherwise, do nothing.", font=font, fill=255)
 
     display.image(img)
     display.display()
@@ -185,13 +188,22 @@ def main() -> None:
 
     # display if button pressed/button not pressed
     if (b.is_pressed):
+        
+        website_name = "127.0.0.1"
+        # checks for internet connection 
+        try:
+            requests.get("https://google.com")
+            website_name = _get_pi_ip()
+        except requests.exceptions.ConnectionError:
+            pass
+
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
-        draw.text((0, 16), "In server mode \nVisit website: \nraspberrypi.local:5000", fill=255, font=font)
+        draw.text((0, 16), f"In server mode \nVisit website: \n{website_name}:7123", fill=255, font=font)
         display.image(img)
         display.display()
         time.sleep(1)
-
+       
         mode = "server"
     else:
         draw.rectangle((0, 0, 128, 128), fill=0)
