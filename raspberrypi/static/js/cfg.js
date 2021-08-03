@@ -45,7 +45,7 @@ axios
     const cfgs = [
       new Cfg(
         "LED",
-        "This value indicates how the speed should be displayed on the LED matrix. If the value is 0, then each LED represents 1 unit of speed. If the value is 1, then each LED represents 2 units of speed. For example, if your current speed was 4 miles per hour, then 4 LEDs would light up if LED=0 and 2 LEDs would light up if LED=1. The value must be either 0 or 1.",
+        "This value indicates how the speed should be displayed on the LED matrix. If the value is 0, then each LED represents 1 unit of speed. If the value is 1, then each LED represents 2 units of speed. For example, if your current speed is 4 miles per hour, then 4 LEDs would light up if the value is 0, and 2 LEDs would light up if the value is 1. The value must be either 0 or 1.",
         0,
         [0, 1]
       ),
@@ -69,7 +69,7 @@ axios
       ),
       new Cfg(
         "24H",
-        "Indicates whether you use a 24 hour clock. If it is 0, it will show a 12 hour clock with AM and PM at the end(1:00PM instead of 13:00). If the value is 1, then the clock will show from 00:00-23:00. Value must be 0 or 1.",
+        "Indicates whether you use a 24 hour clock. If it is 0, it will show a 12 hour clock with AM and PM at the end (1:00PM instead of 13:00). If the value is 1, then the clock will show from 00:00-23:00. Value must be 0 or 1.",
         0,
         [0, 1]
       ),
