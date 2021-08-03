@@ -1,6 +1,6 @@
 # Updating your Bike Dashboard
 
-By updating, you are deleting and re-installing Bike Dashboard in the same directory. 
+By updating, you are syncing your local main branch with the Github master branch.
 
 1. `ssh` into your pi: 
     ```
@@ -13,7 +13,7 @@ By updating, you are deleting and re-installing Bike Dashboard in the same direc
     ```
     git pull --rebase origin master
     ```
-    This will not delete your tracking or error files because they were put inside `.gitignore` when installing.
+    This will not delete your tracking or error files because they were put inside `.gitignore` when installing. Note that this will not work if you have uncommitted changes.
 
 4. Reboot your Pi:
     ```
