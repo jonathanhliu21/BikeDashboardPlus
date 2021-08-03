@@ -57,9 +57,9 @@ I will try to implement these enhancements as long as they are not a major chang
 
 ### Next minor release
 - Allow users to separate tracking files after combining them
-- If the user chooses to update from the website, then automatically delete the BDPlus folder and install the new version instead of making the user manually update
+- If the user chooses to update from the website, then automatically pull from the repository
 
-### Later releases
+### Later minor releases
 - Continue tracking even if disconnected
 - Track the distance along with coordinates instead of calculating the distance after
 - Make the LED panel show more than just speed
