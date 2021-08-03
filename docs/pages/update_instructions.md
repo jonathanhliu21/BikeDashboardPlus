@@ -13,6 +13,7 @@ By updating, you are deleting and re-installing Bike Dashboard in the same direc
     ```
     git pull --rebase origin master
     ```
+    This will not delete your tracking or error files because they were put inside `.gitignore` when installing.
 
 4. Reboot your Pi:
     ```
