@@ -128,7 +128,7 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     rm -rf BikeDashboardPlus/bin
 
     # add gitignore
-    mv BikeDashboardPlus/ignored_files.txt BikeDashboardPlus/.gitignore
+    cp BikeDashboardPlus/ignored_files.txt BikeDashboardPlus/.gitignore
 
     # add tracking folder
     mkdir BikeDashboardPlus/tracking; 
