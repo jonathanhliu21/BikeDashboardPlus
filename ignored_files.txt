@@ -8,3 +8,4 @@ port
 tracking/
 .vscode/
 env/
+__pycache__/
