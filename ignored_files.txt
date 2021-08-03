@@ -1,0 +1,10 @@
+# This will be mv'ed into .gitignore when installing
+
+.DS_Store
+.gitignore
+cfg.json
+errors.txt
+port
+tracking/
+.vscode/
+

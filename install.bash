@@ -127,6 +127,9 @@ if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     # remove arduino-cli in case of conflict
     rm -rf BikeDashboardPlus/bin
 
+    # add gitignore
+    mv BikeDashboardPlus/ignored_files.txt BikeDashboardPlus/.gitignore
+
     # add tracking folder
     mkdir BikeDashboardPlus/tracking; 
 
