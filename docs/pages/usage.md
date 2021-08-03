@@ -17,7 +17,7 @@ After displaying some setup text, the OLED will display the things you will see 
 
 This is how the LED panel works and how the LEDs are numbered:  
 ![LED_panel_tutorial]()  
-If you are going *x* mph, or *x* km/h, or *x* m/s, depending on your configuration which we will get to later, then LED *x* will light up.
+Depending on your configuration which we will get to later, if you are going *x* mph, or *x* km/h, or *x* m/s, then LED *x* will light up. Or, if you have edited your LED configuration, then if you are going *2x* mph or *2x* km/h or *2x* m/s, then LED *x* will light up.
 
 To start tracking, press the button wired to pin D4 on the Arduino Nano. The green LED on the Arduino will light up and a "T" will show up on the bottom right of the OLED display to indicate that you are currently tracking. **Note that tracking is not possible if you are disconnected** i.e. the red LED is on or it says "M:D" on the OLED.
 
@@ -35,4 +35,50 @@ When the "Setup" screen comes on the OLED, press button 1 on the central unit (t
 
 Go to the website shown on the OLED. It should be `http://{your.pi.IP}:7123`.
 
+On the home page, you should see this (the version number will be different):   
+![home_page](/docs/img/bd_web_home.png)  
+There are 3 options: the configuration page, the map page, and the combining page. I will go through what each one does.
+
+### Configuration
+The configuration page should look like this:
+![cfg_page](/docs/img/bd_web_cfg.png)
+
+It is a table showing all the configurations, what they mean, and what value you have to enter. You have to enter the according value into the text box on the right column of the table. 
+
+For the time zone, you should copy and paste from the list in the link rather than typing it out as it is case sensitive and you have to type it out exactly like it is in the table.
+
+At the end, click submit.
+
+### Map
+You should not be able to see anything on the map page if you do not have any track files. If you do, the link name will be something like:
+```
+Started tracking at: <date> <time> UTC
+```
+When you click on it, it should look like this:
+![map_page](/docs/img/bd_web_map.png)
+(Don't worry, I don't live here.)
+
+If you see a message advising you to delete the file, then there was some error writing/reading the tracking file and you should delete it.
+
+The numbers under "Raw tracking data" should be rounded to the millionth digit and should not be as precise as shown above. That data was copied from Google Maps for testing.
+
+On the map, you should be able to see your route. There is a start marker, end marker, and multiple pause/resume markers depending on where you paused.
+
+On the bottom of the map, you should see how far you have travelled depending on your configuration.
+
+If you accidentally started tracking and you want to delete the file, press "Delete this file" at the bottom of the page.
+
+### Combining
+
+If your GPS got disconnected whilst tracking, and you had to restart the tracking, leading to 2 or more separate tracking files, you can combine them in the "combining" page. However, on the map, it will indicate that you paused at the end of one tracking file and resumed at the start of the next instead of drawing one continuous line between the two.
+
+**Note that you cannot separate files after combining them.**
+
+Click the check boxes in the order you want to combine the files. You will see the order of the file numbers below so you can confirm your choices. 
+
+Click submit to combine the files.
+
+### Shutting down
+
+Just like in bike mode, press the button wired to BCM pin 18 to shut the Pi down.
 
