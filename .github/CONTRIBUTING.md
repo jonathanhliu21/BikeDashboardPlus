@@ -2,7 +2,7 @@
 
 Thank you for having an interest in contributing to my project. However, as I have a very busy schedule, I may not get to all of your contributions, but I will try my best. 
 
-Before reading the rest, please read the code of conduct. 
+Before reading the rest, please read the [code of conduct](CODE_OF_CONDUCT.md). 
 
 ## Reporting bugs and issues
 
@@ -50,7 +50,6 @@ If the answers to the above questions are "No", classify your issue and then ope
     - Label with "enhancement"
     - Name the feature you want to enhance and why you want to enhance it (are you annoyed/frustrated by something in the feature?) OR name a feature you want to add and why you want to add it
     - Explain how you want to enhance it or want it to be enhanced OR explain about your proposed feature
-    - Label the files that would need to be changed for this upgrade 
     - Include links to photos, videos, diagrams, etc if necessary
     - If you think you want to write the code yourself, see "Pull requests"
 - Questions
