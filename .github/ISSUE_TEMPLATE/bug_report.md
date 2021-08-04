@@ -18,7 +18,7 @@ Steps to reproduce the bug:
 ...
 
 **What you expected to see vs what you saw**
-A clear and concise description of what you expected to happen and what you actually saw.
+A clear and concise description of what you expected to happen and what you actually saw. Include any errors seen in errors.txt, if any.
 
 **Pictures/videos**
 Add pictures or links to videos to help explain your problem.
