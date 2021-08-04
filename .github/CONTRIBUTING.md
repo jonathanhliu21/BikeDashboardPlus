@@ -18,7 +18,7 @@ If you have noticed a bug in the code or your Bike Dashboard:
     - If there isn't a video already, reply to the issue with your own picture/video
     - After this, skip all other steps
 - If no open issues are describing your issue, then:  
-    1. Open a bug report issue
+    1. Open a bug report issue (**Please use the templates provided**)
     2. Label the issue with the "bug" tag
     3. Describe the bug (what is happening)
     4. Describe how the bug was caused
@@ -77,7 +77,7 @@ Note that code reviewing will be very slow due to my busy schedule. I will revie
 
 1. Fork the repository
 2. Create a new branch in your forked repository that you will fix a bug on or enhance/add a feature on
-3. Work on your code and create a pull request to the **develop** branch of the base repository
+3. Work on your code and create a pull request to the **develop** branch of the base repository (**Please use the template provided**)
 4. Make changes to the docs if necessary
 5. Wait for review
 
