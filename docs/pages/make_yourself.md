@@ -44,7 +44,7 @@ More information on 3D Printing and the case/mount design can be found [here](ht
 
 There will be two steps during installation: configuring your Pi so the software will work, and installing the software. However, before that:
 
-If you haven't installed the Raspberry Pi OS, follow the instructions below. Make sure to install "Raspberry Pi OS (32 bit)" and not any other OS as they might not come with Python or cURL.
+If you haven't installed the Raspberry Pi OS, follow the instructions below. Make sure to install "Raspberry Pi OS (32 bit)" and not any other OS as they might not come with Python, cURL, or git.
 - [Setting up the Raspberry Pi](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
 - [Setting up the Raspberry Pi headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
 
@@ -54,14 +54,26 @@ If you haven't installed the Raspberry Pi OS, follow the instructions below. Mak
   sudo apt install python3 idle3
   ```
 
-- Curl installation if you do not have it installed:
+- cURL installation if you do not have it installed:
   ```
   sudo apt update
   sudo apt install curl
   ```
 
+- Git installation if you do not have it installed
+  ```
+  sudo apt update
+  sudo apt install git
+  ```
+
 ### Configuring
 
+Configuring git:
+1. Type in `git config --global user.name "Your name"`
+2. Type in `git config --global user.email "your@email.com"`  
+Replace `"Your name"` and `"your@email.com"` with your actual name and your actual email.
+
+Configuring the pins: 
 1. Type in `sudo raspi-config`
 2. Go to "Interface options" and select `I2C`, then select Yes.
 3. Return to "Interface options" and select `Serial Port`. When it asks `Would you like a login shell to be accessible over serial?`, select No. It will then ask, `Would you like the serial port hardware to be enabled?`, and select Yes.
