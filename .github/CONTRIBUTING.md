@@ -19,6 +19,7 @@ If you have noticed a bug in the code or your Bike Dashboard:
     - After this, skip all other steps
 - If no open issues are describing your issue, then:  
     1. Open a bug report issue (**Please use the templates provided**)
+        - **Make sure the title is specific to the bug**
     2. Label the issue with the "bug" tag
     3. Describe the bug (what is happening)
     4. Describe how the bug was caused
@@ -45,6 +46,7 @@ If I find out that this bug is actually happening, then I will add it to the lis
         - If yes, react to that issue with 👍 and ignore all other steps
 
 If the answers to the above questions are "No", classify your issue and then open an issue:
+**Make sure the title is specific to your suggestion/feedback/question**
 
 - Upgrade idea:
     - Label with "enhancement"
@@ -81,6 +83,7 @@ Note that code reviewing will be very slow due to my busy schedule. I will revie
 5. Wait for review
 
 In the pull request, include:
+- A **specific** title
 - A link to the corresponding issue
 - Summary of what you've changed
 - How you tested the change
