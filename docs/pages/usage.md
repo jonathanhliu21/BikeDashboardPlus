@@ -1,5 +1,6 @@
 # How to use your Bike Dashboard
 
+[Back to README](/README.md)  
 If you have not installed Bike Dashboard, [go here](/docs/pages/make_yourself.md).
 
 There are 2 modes to the Bike Dashboard: Bike mode, and server mode. Bike mode is the mode that you set when you are riding your bike. The OLED display will display time, speed, etc., and you can track your route. Server Mode sets up a server where you can configure your Bike Dashboard and where you can view the maps of your tracked routes.
