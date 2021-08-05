@@ -1,34 +1,22 @@
 # Updating your Bike Dashboard
 
-By updating, you are deleting and re-installing Bike Dashboard in the same directory. 
+By updating, you are syncing your local main branch with the Github master branch.
 
 1. `ssh` into your pi: 
     ```
-    ssh pi@your.pi.ip
-    ```
-2. `cd` into your BikeDashboardPlus directory, then `cd` into the parent directory (by typing `cd ..`). You can check the Bike Dashboard directory by typing `cat ~/BikeDashboardPlus.txt`
-3. Delete the `BikeDashboardPlus.txt` file in the home folder:
-    ```
-    rm ~/BikeDashboardPlus.txt
-    ```
-4. Download the install script and run it. Make sure to plug in your Arduino and remember the path of the Arduino port ([How to know what port your Arduino is](./make_yourself.md); go to "Installing").
-
-    Downloading the script:
-    ```
-    curl -sO https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/install.bash 
+    ssh pi@your.pi.IP
     ```
 
-    Running it:
+2. `cd` into your BikeDashboardPlus directory. You can check the Bike Dashboard directory by typing `cat ~/BikeDashboardPlus.txt` 
 
+3. Run this command (it syncs the code on the master branch on Github with the code on your local Pi):
     ```
-    bash install.bash /dev/port
+    git pull --rebase origin master
     ```
+    This will not delete your tracking or error files because they were put inside `.gitignore` when installing.   
+    Note that this command will not work if you have uncommitted changes.
 
-    There is no need to remove the Bike Dashboard directory because the install script automatically does that.
-
-5. Wait for it to install, then reboot your Pi:
+4. Reboot your Pi:
     ```
     sudo reboot
     ```
-
-6. After rebooting, you will have an updated version of BikeDashboardPlus.

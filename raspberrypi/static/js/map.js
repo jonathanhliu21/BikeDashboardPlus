@@ -111,7 +111,7 @@ function conv_sm_dist_unit(dist, unit){
 function handle_track_data(s, unit, is_valid){
     // takes in file string and cfg unit from flask jinja
 
-    is_valid = (is_valid == "True" ? true : false);
+    is_valid = (is_valid === "True" ? true : false);
     var arr = s.trimEnd().split("\n");
 
     // put delete button on DOM and put msg if the file has data error
