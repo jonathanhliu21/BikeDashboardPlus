@@ -39,14 +39,29 @@ CMD_SERVER_MODE = "python3 raspberrypi/server_mode.py 2>> errors.txt && printf \
 def handle_bike_mode() -> None: 
     global display, img, draw, font, b
 
+    draw.rectangle((0, 0, 128, 128), fill=0)
+    draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
+    draw.text((0, 16), "No press detected \nEntering bike mode", fill=255, font=font)
+    display.image(img)
+    display.display()
+    time.sleep(1)
+
+    try:
+        time.sleep(1)
+    except (KeyboardInterrupt):
+        display.clear()
+        display.display()
+        
+        quit()
+
     while True:
+        # using subprocess instead of import so an error would not exit out of the whole program and the process would be easier to kill
         subprocess.call(CMD_BIKE_MODE.split())
         
         # if exits out here, means that OS error happened/Arduino disc or OLED disc
-
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "Oh no!", fill=255, font=font)
-        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  # print text to image buffer
+        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  
         display.image(img)
         display.display()
         time.sleep(1)
@@ -61,17 +76,29 @@ def handle_bike_mode() -> None:
 
 def handle_server_mode() -> None:
     global display, img, draw, font
-
+       
     # checks for internet connection in order to enter server mode
     try:
         requests.get("https://google.com")
+
+        # display the pi IP as website
+        website_name = _get_pi_ip()
+
+        draw.rectangle((0, 0, 128, 128), fill=0)
+        draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
+        draw.text((0, 16), f"In server mode \nVisit website: \n{website_name}:7123", fill=255, font=font)
+        display.image(img)
+        display.display()
+        time.sleep(1)
+
+        # using subprocess instead of import so an error would not exit out of the whole program and the process would be easier to kill
         subprocess.call(CMD_SERVER_MODE.split())
     except requests.exceptions.ConnectionError:
         # enter bike mode if no internet connection
 
         draw.rectangle((0, 0, 128, 128), fill=0)
         draw.text((0, 0), "No connection", fill=255, font=font)
-        draw.text((0, 16), "Going into \nbike mode", fill=255, font=font)  # print text to image buffer
+        draw.text((0, 16), "Going into \nbike mode", fill=255, font=font) 
         display.image(img)
         display.display()
         time.sleep(1)
@@ -101,7 +128,7 @@ def shutdown_button() -> None:
 
     draw.rectangle((0, 0, 128, 128), fill=0)
     draw.text((0, 0), "Powering off", fill=255, font=font)
-    draw.text((0, 16), "Wait for green LED \non RPi to turn off \nbefore switching off.", fill=255, font=font)  # print text to image buffer
+    draw.text((0, 16), "Wait for green LED \non RPi to turn off \nbefore switching off.", fill=255, font=font)  
     display.image(img)
     display.display()
     time.sleep(1)
@@ -173,11 +200,11 @@ def main() -> None:
     display.display()
     time.sleep(1)
     
-
     # wait for button press to go into server mode
     b = Button(BUTTON_PIN)
 
     try:
+        # wait 5 seconds for user to press button, otherwise enter bike mode
         b.wait_for_press(timeout=5)
     except (KeyboardInterrupt):
         display.clear()
@@ -188,39 +215,8 @@ def main() -> None:
 
     # display if button pressed/button not pressed
     if (b.is_pressed):
-        
-        website_name = "127.0.0.1"
-        # checks for internet connection 
-        try:
-            requests.get("https://google.com")
-            website_name = _get_pi_ip()
-        except requests.exceptions.ConnectionError:
-            pass
-
-        draw.rectangle((0, 0, 128, 128), fill=0)
-        draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
-        draw.text((0, 16), f"In server mode \nVisit website: \n{website_name}:7123", fill=255, font=font)
-        display.image(img)
-        display.display()
-        time.sleep(1)
-       
         mode = "server"
     else:
-        draw.rectangle((0, 0, 128, 128), fill=0)
-        draw.text((0, 0), "Restart to switch mode ", fill=255, font=font)
-        draw.text((0, 16), "No press detected \nEntering bike mode", fill=255, font=font)
-        display.image(img)
-        display.display()
-        time.sleep(1)
-
-        try:
-            time.sleep(1)
-        except (KeyboardInterrupt):
-            display.clear()
-            display.display()
-            
-            quit()
-
         mode = "bike"
     
     try:
