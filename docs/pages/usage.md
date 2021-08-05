@@ -13,11 +13,12 @@ The Bike Dashboard automatically goes into Bike Mode when it boots up.
 
 After displaying some setup text, the OLED will display the things you will see in Bike Mode. This diagram will show what each thing displayed on the OLED represents:
 
-![Bike_mode_OLED_tutorial]()
+<img src="../img/bd_build_oled.png" alt="OLED_tutorial" height="500px">
 
-This is how the LED panel works and how the LEDs are numbered:  
-![LED_panel_tutorial]()  
-If the configuration *LED* is 0, then LED *n* will light up if you are going *n* mph, km/h, or m/s. If *LED* is set to 1, then LED *n/2* will light up if you are going *n* mph, km/h, or m/s.
+This is how the LEDs on the LED panel are numbered:  
+![LED_panel_tutorial](/docs/img/bd_build_led_panel.png)  
+How it works:
+If the configuration "LED" is 0, then LED *n* (on the panel) will light up if you are going *n* mph, km/h, or m/s. If "LED" is set to 1, then LED *n/2* will light up if you are going *n* mph, km/h, or m/s.
 
 To start tracking, press the button wired to pin D4 on the Arduino Nano. The green LED on the Arduino will light up and a "T" will show up on the bottom right of the OLED display to indicate that you are currently tracking. **Note that tracking is not possible if you are disconnected** i.e. the red LED is on or it says "M:D" on the OLED.
 
@@ -64,7 +65,9 @@ The numbers under "Raw tracking data" should be rounded to the millionth digit a
 
 On the map, you should be able to see your route. There are a start marker, an end marker, and multiple pause/resume markers depending on where you paused.
 
-On the bottom of the map, you should see how far you have travelled depending on your configuration.
+On the bottom of the map, you should see how far you have travelled depending on your "UNT" configuration.
+- If "UNT" is 0 (mph), then it shows in miles and feet
+- If "UNT" is 1 (km/h) or 2 (m/s), then it shows in kilometers and meters
 
 If you accidentally started tracking and you want to delete the file, press "Delete this file" at the bottom of the page.
 
