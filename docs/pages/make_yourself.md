@@ -16,7 +16,7 @@ These are the parts you need to buy to make this project.
 - 22 LEDs: 20 white, 1 red, 1 green
 - Tactile pushbutton switch
 - Breadboard (if you don't want to solder)
-- Perfboard (for a more permanent build)
+- Perfboard or stripboard (for a more permanent build)
 - Jumper wires
 - 2 10k ohm resistors
 - 2 220-330 ohm resistors
