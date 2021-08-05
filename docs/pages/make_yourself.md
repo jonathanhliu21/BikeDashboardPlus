@@ -1,6 +1,6 @@
 # Making this project yourself
 [Back to README](/README.md)  
-[How to use the Bike Dashboard](docs/pages/usage.md)
+[How to use the Bike Dashboard](/docs/pages/usage.md)
 
 This page is for people who are interested in making a Bike Dashboard with their own Raspberry Pi. The schematics and designs shown are what work best for me and my bike and may not work for you, so feel free to edit the code, the schematics, and the design for the case and mount. 
 
