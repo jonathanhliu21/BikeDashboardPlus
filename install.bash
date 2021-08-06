@@ -33,7 +33,7 @@ if [[ "$1 " == " " ]];
     exit 1;
 fi;
 
-read -p "This will install BikeDashboardPlus on your current directory (~ 29 megabytes). Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 0;
+read -p "This will install BikeDashboardPlus on your current directory. Make sure you have your Arduino plugged in before continuing. Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 0;
 
 if (cat /proc/device-tree/model | grep -q "Raspberry Pi");
     then 

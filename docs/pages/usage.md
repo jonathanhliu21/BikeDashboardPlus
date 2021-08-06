@@ -29,11 +29,17 @@ To pause tracking, press the button wired to pin D5 on the Arduino. Indicators t
 
 To end tracking, press the same button as the one you pressed when you started tracking. The green LED will turn off and there should be nothing displayed on the bottom right corner of the OLED. 
 
+If the program is quitting before entering bike mode, and both your OLED and Arduino are connected, it may be that the port to the Arduino is wrong. If this happens, `ssh` into your Pi, then [go here](/docs/pages/make_yourself.md) and go under "Installation" to find out which serial port your Arduino is connected to. After that, type in 
+```
+nano raspberrypi/port
+```
+then change the port in the file to the new port of the Arduino. Then save and close the file (press ^X, then Y, then enter).
+
 ## Server Mode
 
-To get into server mode from bike mode, you need to shut it off and turn it back on again. To do this, press button 2 on the central unit (the one wired to BCM pin 18 on the RPi), switch the RPi off, then switch it back on again. 
+To get into server mode from bike mode, you need to shut it off and turn it back on again. To do this, press button 2 on the central unit (the one wired to BCM pin 18 on the RPi).
 
-When the "Setup" screen comes on the OLED, press button 1 on the central unit (the one wired to BCM pin 17 on the RPi). You are in server mode, and the Raspberry Pi is hosting a website on your network. Note that if there is no internet connection, server mode would fail and it would go into Bike Mode.
+When the "Setup" screen comes on the OLED, press and hold button 1 on the central unit (the one wired to BCM pin 17 on the RPi). When the "Server mode" screen comes on, you are in server mode, and the Raspberry Pi is hosting a website on your network. Note that if there is no internet connection, server mode would fail and it would go into Bike Mode.
 
 Go to the website shown on the OLED. It should be `http://{your.pi.IP}:7123`.
 
