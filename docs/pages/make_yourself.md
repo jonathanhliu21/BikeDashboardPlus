@@ -22,11 +22,11 @@ These are the parts you need to buy to make this project.
 
 ### Case and mount
 It depends on how you want to make it. For example, if you wanted to 3D print the case and the mount to the bike, then you would need a 3D printer and filament. I used:
-- Plywood
-- X-acto knife
-- Saw
-- Hot glue, hot glue gun
-- Gorilla glue
+- [Basswood](https://www.amazon.com/Basswood-Sheets-Unfinished-Plywood-Crafts/dp/B08VN3HXDT/ref=sr_1_7?dchild=1&keywords=basswood&qid=1628279730&sr=8-7) (I got a much harder and thicker type of wood. This wood should be easily cuttable with a razor blade or a x-acto knife.)
+- [X-acto knife](https://www.amazon.com/X-Acto-XZ3601-X-ACTO-Knife-Safety/dp/B005KRSWM6/ref=sr_1_5?crid=2TNSLQ787JYN7&dchild=1&keywords=xacto+knife&qid=1628279798&sprefix=x+acto+%2Caps%2C251&sr=8-5)
+- [Hand saw](https://www.amazon.com/CRAFTSMAN-Hand-12-Inch-Hacksaw-CMHT20138/dp/B07R92S9YZ/ref=sr_1_5?dchild=1&keywords=hand+saw&qid=1628279935&sr=8-5) 
+- [Hot glue, hot glue gun](https://www.amazon.com/Gluerious-Sticks-Crafts-School-Repairs/dp/B08FTHWC94/ref=sr_1_1_sspa?dchild=1&keywords=hot+glue+gun&qid=1628279885&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExSFZGUlRKQUxHWlVXJmVuY3J5cHRlZElkPUEwMjA1OTM4MlRZVjlaWUtVTFlHUCZlbmNyeXB0ZWRBZElkPUEwNjM3NDc4MVRMOTZFOTNaRFBTSiZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
+- [Gorilla glue](https://www.amazon.com/Gorilla-Original-Waterproof-Polyurethane-Bottle/dp/B0000223UV/ref=sr_1_2_sspa?dchild=1&keywords=gorilla+glue&qid=1628279996&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyVFhHTzVWVE9VS0VEJmVuY3J5cHRlZElkPUEwNDUzODU1OTNHMlNCUVhNQlk2JmVuY3J5cHRlZEFkSWQ9QTA2MzIzMTJOMVFUQzZLSVdYWlgmd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl)
 
 ## Schematic
 ![bd_schematic.png](../img/bd_schematic.png)
