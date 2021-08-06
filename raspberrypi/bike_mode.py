@@ -137,7 +137,7 @@ def tracker(lat: int, lng: int, tm: datetime.datetime) -> None:
     if (tracking == 1):
         msg = "PAUSED\n"
     else:
-        msg = str(round(lat, 6)) + "," + str(round(lng, 6)) + "\n"
+        msg = str(lat) + "," + str(lng) + "\n"
 
     print(f"writing {msg[:-1]} to {fileName}")
 
