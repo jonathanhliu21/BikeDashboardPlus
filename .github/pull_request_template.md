@@ -17,6 +17,9 @@ If any, list any new dependencies required.
 **Changes to the documentation**  
 If your code needed any changes to the docs, please list the changes here.
 
+**Additional notes**     
+Provide any additional notes here.
+
 **Checklist (Delete when done)**
 - Self-reviewed your code
 - Commented your code so it is easy to read and follow
