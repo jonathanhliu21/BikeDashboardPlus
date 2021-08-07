@@ -76,6 +76,8 @@ disp_data_g = {
     "mode": 'D',
     "track": ''
 }
+# sync LED panel speed to OLED speed because OLED is slow and cannot do other way around
+oled_speed = 0
 
 # Arduino serial port
 port_file = open("raspberrypi/port", 'r')
@@ -172,6 +174,7 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
         refer to plan doc for what each means
     }
     """
+    global oled_speed
 
     unit_to_str = ["mph", "km/h", "m/s"]
 
@@ -214,6 +217,8 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     disp.display()
     time.sleep(0.2)
 
+    # this is the speed currently displayed on the oled
+    oled_speed = data["speed"]
 
 def disp_th() -> None:
     # writing to OLED causes delay so I'm putting it in a thread
@@ -257,7 +262,7 @@ def disp_th() -> None:
 
 
 def main_ser_connect(ser: serial.Serial) -> None:
-    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
+    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, oled_speed
 
     while True:
         while (ser.is_open):
@@ -298,7 +303,8 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 # speed, given in m/s
                 speed = curdata["speed"]
 
-                send["GPS"] = [curdata["lat"], curdata["lon"], conv_unit(speed, unit=display_dict["unit"]),
+                # send speed currently displayed on oled to panel so it is synced with oled
+                send["GPS"] = [curdata["lat"], curdata["lon"], conv_unit(oled_speed, unit=display_dict["unit"]),
                                d_localized.month, d_localized.day, d_localized.hour, d_localized.minute]
 
                 # update what to display
