@@ -65,15 +65,18 @@ def handle_bike_mode() -> None:
         subprocess.call(CMD_BIKE_MODE.split())
         
         # if exits out here, means that OS error happened/Arduino disc or OLED disc
-        draw.rectangle((0, 0, 128, 128), fill=0)
-        draw.text((0, 0), "Oh no!", fill=255, font=font)
-        draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  
-        display.image(img)
-        display.display()
+        try:
+            # put in try because OLED may be disconnected
 
-        # let user press button after reconnected and then try again
-        time.sleep(1)
-        b.wait_for_press()
+            draw.rectangle((0, 0, 128, 128), fill=0)
+            draw.text((0, 0), "Oh no!", fill=255, font=font)
+            draw.text((0, 16), "OLED or Arduino \ndisconnected. Reconn., \npress B1 try again.", fill=255, font=font)  
+            display.image(img)
+            display.display()
+            time.sleep(1)
+        finally:
+            # let user press button after reconnected and then try again
+            b.wait_for_press()
 
 def handle_server_mode() -> None:
     global display, img, draw, font
