@@ -44,6 +44,7 @@ cfg_ard = json.load(cfg_file)
 cfg = deepcopy(cfg_ard)
 cur_tz = cfg["TMZ"]
 del cfg_ard["24H"], cfg_ard["TMZ"]
+cfg_file.close()
 
 # data sent to Arduino during loop
 send = {
@@ -58,6 +59,7 @@ curdata = {}
 
 # tracking and buttons
 tracking = 0  # 0 = stopped, 1 = paused, 2 = tracking
+wastracking = False # continues tracking even if disconnected
 prevbstate1 = False
 prevbstate2 = False
 prevTimeEpoch = 0
@@ -76,10 +78,13 @@ disp_data_g = {
     "mode": 'D',
     "track": ''
 }
+# sync LED panel speed to OLED speed because OLED is slow and cannot do other way around
+oled_speed = 0
 
 # Arduino serial port
 port_file = open("raspberrypi/port", 'r')
 port = port_file.read().strip()
+port_file.close()
 
 def err(ex_type, value, tb):
     """
@@ -172,6 +177,7 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
         refer to plan doc for what each means
     }
     """
+    global oled_speed
 
     unit_to_str = ["mph", "km/h", "m/s"]
 
@@ -214,6 +220,8 @@ def draw_on_display(disp: Adafruit_SSD1306.SSD1306_128_64, img: Image.Image,
     disp.display()
     time.sleep(0.2)
 
+    # this is the speed currently displayed on the oled
+    oled_speed = data["speed"]
 
 def disp_th() -> None:
     # writing to OLED causes delay so I'm putting it in a thread
@@ -242,22 +250,14 @@ def disp_th() -> None:
         try:
             draw_on_display(display, img, drawing, fonts, disp_data_g)
         except OSError:
-            # reconnect OLED if disconnected
-
-            err_time_str = datetime.datetime.now().strftime("%m/%d %H:%M:%S")
-            print(f"display disconnected at {err_time_str} and reconnecting")
-
-            try:
-                display.begin()
-                time.sleep(2)
-                display.clear()
-                time.sleep(1)
-            except OSError:
-                time.sleep(5)
+            # ask user to reconnect by exiting out of program
+            # refer to __main__.py under handle_bike_mode()
+            print(f"OLED disconnected", file=sys.stderr)
+            os._exit(1)
 
 
 def main_ser_connect(ser: serial.Serial) -> None:
-    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz
+    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, oled_speed, wastracking
 
     while True:
         while (ser.is_open):
@@ -288,6 +288,10 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 # turn red LED off since there is communcation with GPS
                 send["LED"][1] = 0
 
+                # keep tracking if GPS was disconnected
+                if (wastracking):
+                    tracking = 2
+
                 # time
                 curtime = curdata["time"]
                 d_temp = datetime.datetime.strptime(
@@ -298,7 +302,8 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 # speed, given in m/s
                 speed = curdata["speed"]
 
-                send["GPS"] = [curdata["lat"], curdata["lon"], conv_unit(speed, unit=display_dict["unit"]),
+                # send speed currently displayed on oled to panel so it is synced with oled
+                send["GPS"] = [curdata["lat"], curdata["lon"], conv_unit(oled_speed, unit=display_dict["unit"]),
                                d_localized.month, d_localized.day, d_localized.hour, d_localized.minute]
 
                 # update what to display
@@ -313,12 +318,14 @@ def main_ser_connect(ser: serial.Serial) -> None:
             # if button 1 pressed
             if ("BUTTON1" in rcv and rcv["BUTTON1"] and not prevbstate1):
                 if (tracking == 1 or tracking == 2):
+                    wastracking = False
                     tracking = 0
                 else:
                     tracking = 2
 
                     # create new file when button pressed
                     if (send["LED"][1] == 0):
+                        wastracking = True
                         tm = datetime.datetime.strptime(
                             curdata["time"][:-5], "%Y-%m-%dT%H:%M:%S")
                         new_track_file(tm)
@@ -386,7 +393,7 @@ def main() -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, port
 
     # debug
-    sys.excepthook = err
+    # sys.excepthook = err
 
     # GPS command
     CMD = "sudo gpsd /dev/serial0 -F /var/run/gpsd.sock"
