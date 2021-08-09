@@ -80,7 +80,10 @@ def map_page():
     # displays links to files of maps
 
     def _conv_filename(name):
-        return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
+        if (name.strip().upper() == "ERROR"):
+            return "Error file, delete me!"
+        else:
+            return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
 
     # get all track files
     filenames = next(os.walk("tracking"), (None, None, []))[2]
@@ -122,7 +125,10 @@ def map_file_page(f_name) -> None:
 @app.route("/map/combine", methods=["GET", "POST"])
 def combine_map_page():
     def _conv_filename(name):
-        return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
+        if (name.strip().upper() == "ERROR"):
+            return "Error file, delete me!"
+        else:
+            return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
 
     # get all track files
     filenames = next(os.walk("tracking"), (None, None, []))[2]
