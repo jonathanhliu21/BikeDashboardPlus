@@ -98,10 +98,11 @@ Configuring the pins:
 2. Make a backup of /etc/rc.local: `sudo cp /etc/rc.local /etc/rc_backup.local`
 3. Edit /etc/rc.local
 - Type `sudo nano /etc/rc.local`
-- Scroll down. Type in `bash /path/to/BikeDashboardPlus/run.bash &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus.txt`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots.
-- Save and exit: Press ^X (Control-X), then Y, then enter.
+- Scroll down. Type in `su pi -c "bash /path/to/BikeDashboardPlus/run.bash" &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus.txt`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots. The `su pi -c` runs the program as the `pi` user so you would be able to access the files in the program later.
+- Save and exit: Press ^X (Control-X), then Y, then enter. 
 
-![rc_local_edit.png](../img/rc_local_edit.png)
+![rc_local_edit.png](../img/rc_local_edit.png)  
+*Don't* add the `vvvv Add here vvvv`. That is just to show where to add the line.
 
 4. Reboot the Pi: `sudo reboot`
 
