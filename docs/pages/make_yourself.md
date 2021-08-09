@@ -6,7 +6,7 @@ This page is for people who are interested in making a Bike Dashboard with their
 
 ## Parts needed
 
-These are the parts you need to buy to make this project. 
+These are the parts you may need to buy to make this project. Depending on how you want to make this project, you can leave out some parts or get other parts. These are just the parts I got.
 
 ### Electronics
 - [Raspberry Pi Zero W](https://www.amazon.com/Vilros-Raspberry-Starter-Power-Premium/dp/B0748MPQT4/ref=pd_lpo_1?pd_rd_i=B0748MPQT4&psc=1) (This links to a kit)
@@ -21,7 +21,7 @@ These are the parts you need to buy to make this project.
 - [2 10k ohm resistors and 2 220-330 ohm resistors](https://www.amazon.com/Resistor-Assortment-Kit-Thermistor-Photoresistor/dp/B0792M83JH/ref=sr_1_1_sspa?dchild=1&keywords=resistor+kit&qid=1628279500&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFLOEZWQjNZQ1Q3RTYmZW5jcnlwdGVkSWQ9QTAzNjU4NTEyTlJXQllLU0syRkMmZW5jcnlwdGVkQWRJZD1BMDkxNjMwMExJRk9NUzE0MzFSMCZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
 
 ### Case and mount
-It depends on how you want to make it. For example, if you wanted to 3D print the case and the mount to the bike, then you would need a 3D printer and filament. I used:
+The materials depend on how you want to make this project. For example, if you wanted to 3D print the case and the mount to the bike, then you would need a 3D printer and filament. I used:
 - [Basswood](https://www.amazon.com/Basswood-Sheets-Unfinished-Plywood-Crafts/dp/B08VN3HXDT/ref=sr_1_7?dchild=1&keywords=basswood&qid=1628279730&sr=8-7) (I got a much harder and thicker type of wood. This wood should be easily cuttable with a razor blade or a x-acto knife.)
 - [X-acto knife](https://www.amazon.com/X-Acto-XZ3601-X-ACTO-Knife-Safety/dp/B005KRSWM6/ref=sr_1_5?crid=2TNSLQ787JYN7&dchild=1&keywords=xacto+knife&qid=1628279798&sprefix=x+acto+%2Caps%2C251&sr=8-5)
 - [Hand saw](https://www.amazon.com/CRAFTSMAN-Hand-12-Inch-Hacksaw-CMHT20138/dp/B07R92S9YZ/ref=sr_1_5?dchild=1&keywords=hand+saw&qid=1628279935&sr=8-5) 
