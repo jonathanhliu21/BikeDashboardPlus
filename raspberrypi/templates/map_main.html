@@ -6,7 +6,7 @@
     Choose the track path you want to view. <br>
 
     {% for i in range(filenames[0] | length) %}
-    <a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }} UTC</a> <br>
+    <a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }} {% if filenames[0][i][0] == 'S' %} UTC {% endif %}</a> <br>
     {% endfor %}
 
 </div>
