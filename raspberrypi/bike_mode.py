@@ -321,11 +321,11 @@ def main_ser_connect(ser: serial.Serial) -> None:
                     wastracking = False
                     tracking = 0
                 else:
-                    wastracking = True
                     tracking = 2
 
                     # create new file when button pressed
                     if (send["LED"][1] == 0):
+                        wastracking = True
                         tm = datetime.datetime.strptime(
                             curdata["time"][:-5], "%Y-%m-%dT%H:%M:%S")
                         new_track_file(tm)
