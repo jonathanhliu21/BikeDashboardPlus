@@ -29,7 +29,9 @@ import requests
 from flask import Flask, jsonify, redirect, render_template, request
 
 need_update = False
-cur_version = open("VERSION", 'r').read().strip()
+cur_version_f = open("VERSION", 'r')
+cur_version = cur_version_f.read().strip()
+cur_version_f.close()
 
 app = Flask(__name__)
 
@@ -76,7 +78,7 @@ def tzs_raw_page():
 @app.route("/map", methods=["GET"])
 def map_page():
     # displays links to files of maps
-    
+
     def _conv_filename(name):
         return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
 
@@ -107,12 +109,13 @@ def map_file_page(f_name) -> None:
     track_arr = track_str.rstrip().split('\n')
     while (len(track_arr) > 0 and (track_arr[-1] == "PAUSED" or track_arr[-1] == "")):
         track_arr.pop()
-    
+
     is_valid = len(track_arr) > 0
 
     # get cfg units
     f = open("raspberrypi/cfg.json", 'r')
     unit = json.load(f)["UNT"]
+    f.close()
 
     return render_template("map.html", tracking=track_str, unit=unit, valid=is_valid)
 
@@ -147,9 +150,9 @@ def combine_map_page():
 
             with open(f_name, 'r') as f:
                 s_total += f.read()
-            
+
             os.remove(f_name)
-        
+
         with open(os.path.join("tracking", f_name_final), 'w') as f:
             f.write(s_total)
 
@@ -162,7 +165,7 @@ def delete_map_endpt(f_name):
     filenames = next(os.walk("tracking"), (None, None, []))[2]
     if (f_name not in filenames):
         return ("File not found", 400)
-    
+
     os.remove(os.path.join("tracking", f_name))
     return ("Successfully removed", 200)
 
