@@ -14,7 +14,7 @@ The Bike Dashboard automatically goes into Bike Mode when it boots up.
 
 After displaying some setup text, the OLED will display the things you will see in Bike Mode. This diagram will show what each thing displayed on the OLED represents:
 
-<img src="../img/bd_build_oled.png" alt="OLED_tutorial" height="500px">
+<img src="../img/bd_build_oled.png" alt="OLED_tutorial" height="500px">  
 
 This is how the LEDs on the LED panel are numbered:  
 ![LED_panel_tutorial](/docs/img/bd_build_led_panel.png)  
@@ -29,11 +29,25 @@ To pause tracking, press the button wired to pin D5 on the Arduino. Indicators t
 
 To end tracking, press the same button as the one you pressed when you started tracking. The green LED will turn off and there should be nothing displayed on the bottom right corner of the OLED. 
 
-If the program is quitting before entering bike mode, and both your OLED and Arduino are connected, it may be that the port to the Arduino is wrong. If this happens, `ssh` into your Pi, then [go here](/docs/pages/make_yourself.md) and go under "Installation" to find out which serial port your Arduino is connected to. After that, type in 
+### What if my program is always quitting?
+
+If the program is quitting before entering bike mode, and both your OLED and Arduino are connected, it may be that the port to the Arduino in the `port` file is wrong. 
+
+If this happens, `ssh` into your Pi, then [go here](/docs/pages/make_yourself.md) and go under "Installation" to find out which serial port your Arduino is connected to. After that, type in 
 ```
 nano raspberrypi/port
 ```
 then change the port in the file to the new port of the Arduino. Then save and close the file (press ^X, then Y, then enter).
+
+### What if my Arduino or OLED got disconnected?
+
+If your Arduino is disconnected, the OLED should display something beginning with "Oh no!". 
+
+Reconnect your Arduino, wait ~5 seconds, then press button 1 (the one wired to BCM pin 17 on the RPi). If it still displays "Oh no!", then try to disconnect the Arduino and reconnect it again, wait ~15 seconds, then press button 1. If the problem persists, then try to shut it down and start it up again, making sure the Arduino is connected. If it is **still** happening, then go to "What if my program is always quitting?".
+
+If your OLED got disconnected, it should be a blank screen, or the time on the OLED does not match the actual time, and the TX and RX LEDs on the Arduino are not rapidly flashing. 
+
+Try pressing button 1 to restart your OLED. If it is quickly disconnects again, then try unplugging your OLED and plugging it in again. If the problem still persists, then restart your Pi making sure the OLED is connected.
 
 ## Server Mode
 

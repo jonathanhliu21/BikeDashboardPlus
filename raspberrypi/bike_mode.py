@@ -44,6 +44,7 @@ cfg_ard = json.load(cfg_file)
 cfg = deepcopy(cfg_ard)
 cur_tz = cfg["TMZ"]
 del cfg_ard["24H"], cfg_ard["TMZ"]
+cfg_file.close()
 
 # data sent to Arduino during loop
 send = {
@@ -82,6 +83,7 @@ oled_speed = 0
 # Arduino serial port
 port_file = open("raspberrypi/port", 'r')
 port = port_file.read().strip()
+port_file.close()
 
 def err(ex_type, value, tb):
     """
@@ -247,18 +249,10 @@ def disp_th() -> None:
         try:
             draw_on_display(display, img, drawing, fonts, disp_data_g)
         except OSError:
-            # reconnect OLED if disconnected
-
-            err_time_str = datetime.datetime.now().strftime("%m/%d %H:%M:%S")
-            print(f"display disconnected at {err_time_str} and reconnecting")
-
-            try:
-                display.begin()
-                time.sleep(2)
-                display.clear()
-                time.sleep(1)
-            except OSError:
-                time.sleep(5)
+            # ask user to reconnect by exiting out of program
+            # refer to __main__.py under handle_bike_mode()
+            print(f"OLED disconnected", file=sys.stderr)
+            os._exit(1)
 
 
 def main_ser_connect(ser: serial.Serial) -> None:
@@ -392,7 +386,7 @@ def main() -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, port
 
     # debug
-    sys.excepthook = err
+    # sys.excepthook = err
 
     # GPS command
     CMD = "sudo gpsd /dev/serial0 -F /var/run/gpsd.sock"
