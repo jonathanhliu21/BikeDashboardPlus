@@ -77,10 +77,13 @@ If I approve of the enhancement, I will add it to "Upgrade ideas" in README.
 Note that code reviewing will be very slow due to my busy schedule. I will review most of the bug fixes first before moving on to the enhancements. 
 
 1. Fork the repository
-2. Create a new branch in your forked repository that you will fix a bug on or enhance/add a feature on
+2. Create a new branch in your forked repository that you will fix a bug on or enhance/add a feature on. **Make sure you merge your branch with `develop` before starting to work on it**.
 3. Work on your code and create a pull request to the **develop** branch of the base repository (**Please use the template provided**)
 4. Make changes to the docs if necessary
 5. Wait for review
+
+Other notes:
+- The python version is python 3.7.3
 
 In the pull request, include:
 - A **specific** title
