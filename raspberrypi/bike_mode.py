@@ -59,6 +59,7 @@ curdata = {}
 
 # tracking and buttons
 tracking = 0  # 0 = stopped, 1 = paused, 2 = tracking
+wastracking = False # continues tracking even if disconnected
 prevbstate1 = False
 prevbstate2 = False
 prevTimeEpoch = 0
@@ -256,7 +257,7 @@ def disp_th() -> None:
 
 
 def main_ser_connect(ser: serial.Serial) -> None:
-    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, oled_speed
+    global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, oled_speed, wastracking
 
     while True:
         while (ser.is_open):
@@ -287,6 +288,10 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 # turn red LED off since there is communcation with GPS
                 send["LED"][1] = 0
 
+                # keep tracking if GPS was disconnected
+                if (wastracking):
+                    tracking = 2
+
                 # time
                 curtime = curdata["time"]
                 d_temp = datetime.datetime.strptime(
@@ -313,8 +318,10 @@ def main_ser_connect(ser: serial.Serial) -> None:
             # if button 1 pressed
             if ("BUTTON1" in rcv and rcv["BUTTON1"] and not prevbstate1):
                 if (tracking == 1 or tracking == 2):
+                    wastracking = False
                     tracking = 0
                 else:
+                    wastracking = True
                     tracking = 2
 
                     # create new file when button pressed
