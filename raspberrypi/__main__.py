@@ -79,6 +79,7 @@ def handle_bike_mode() -> None:
 
         # let user press button after reconnected and then try again
         b.wait_for_press()
+        time.sleep(2) # wait 2 seconds just in case of conflict with writing to OLED
 
 def handle_server_mode() -> None:
     global display, img, draw, font
@@ -153,9 +154,12 @@ def _check_components() -> bool:
         display.begin()
 
         # check serial port
-        pt = open("raspberrypi/port", 'r').read().strip()
+        pt_f = open("raspberrypi/port", 'r')
+        pt = pt_f.read().strip()
         ser = serial.Serial(pt, 115200)
         ser.flush()
+        pt_f.close()
+
     except OSError as e:
         if (e.errno == 2):
             print("Serial port could not be opened.")
