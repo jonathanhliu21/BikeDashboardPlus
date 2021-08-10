@@ -82,7 +82,7 @@ When you click on it, it should look like this:
 
 If you see a message advising you to delete the file, then there was some error writing/reading the tracking file and you should delete it.
 
-The numbers under "Raw tracking data" should be rounded to the millionth digit and should not be as precise as shown above. That data was copied from Google Maps for testing.
+The data should not be as precise as shown above as that was copied from Google Maps.
 
 On the map, you should be able to see your route. There are a start marker, an end marker, and multiple pause/resume markers depending on where you paused.
 
