@@ -10,7 +10,8 @@ These are the parts you may need to buy to make this project. Depending on how y
 
 ### Electronics
 - [Raspberry Pi Zero W](https://www.amazon.com/Vilros-Raspberry-Starter-Power-Premium/dp/B0748MPQT4/ref=pd_lpo_1?pd_rd_i=B0748MPQT4&psc=1) (This links to a kit)
-- [Arduino Nano](https://www.amazon.com/ELEGOO-Arduino-ATmega328P-Without-Compatible/dp/B0713XK923/ref=sr_1_1_sspa?dchild=1&keywords=arduino+nano&qid=1628279256&s=electronics&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzRlFINlY0SzZVODU1JmVuY3J5cHRlZElkPUEwNzk1MTQwMkpFWjIzMVRDR1k5TiZlbmNyeXB0ZWRBZElkPUEwNjY5Mjg5MTdYSUo3UVNSUDZaVSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
+  - [MicroUSB to USB adapter](https://www.amazon.com/Ksmile%C2%AE-Female-Adapter-SamSung-tablets/dp/B01C6032G0/ref=asc_df_B01C6032G0/?tag=hyprod-20&linkCode=df0&hvadid=309833041189&hvpos=&hvnetw=g&hvrand=12260953306372108187&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9031971&hvtargid=pla-567647287320&psc=1)
+- [Arduino Nano](https://www.amazon.com/REXQualis-Board-ATmega328P-Compatible-Arduino/dp/B07WK4VG58/ref=sr_1_2_sspa?dchild=1&keywords=arduino+nano&qid=1628565123&s=electronics&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExUk9PQUJCTUtHRlpPJmVuY3J5cHRlZElkPUEwNTgzMzY5VlM4M01ISUNKTjBTJmVuY3J5cHRlZEFkSWQ9QTA3MjczMzU3RU1RTjFCUlgzQUomd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl)
 - [Neo-6M GPS module](https://www.amazon.com/Navigation-Positioning-Microcontroller-Compatible-Sensitivity/dp/B084MK8BS2/ref=sr_1_2_sspa?dchild=1&keywords=neo+6m&qid=1628279273&s=electronics&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzNlhLQTRHM01TMFFQJmVuY3J5cHRlZElkPUEwMzk5NzU3MlkzOFhXQVYxSzM5NSZlbmNyeXB0ZWRBZElkPUEwMjMwNDg0M0I3Mzc3QUFHOVlNRSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
 - [128x64 SSD1306 OLED display](https://www.amazon.com/UCTRONICS-SSD1306-Self-Luminous-Display-Raspberry/dp/B072Q2X2LL/ref=sr_1_4?dchild=1&keywords=oled+display&qid=1628279332&s=electronics&sr=1-4)
 - [22 LEDs: 20 white, 1 red, 1 green](https://www.amazon.com/eBoot-Pieces-Emitting-Diodes-Assorted/dp/B06XPV4CSH/ref=asc_df_B06XPV4CSH/?tag=hyprod-20&linkCode=df0&hvadid=167146990738&hvpos=&hvnetw=g&hvrand=16456105429600568208&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9031971&hvtargid=pla-369941417757&psc=1)
@@ -18,6 +19,7 @@ These are the parts you may need to buy to make this project. Depending on how y
 - [Breadboard](https://www.amazon.com/Breadboards-Solderless-Breadboard-Distribution-Connecting/dp/B07DL13RZH/ref=sr_1_1_sspa?dchild=1&keywords=breadboard&qid=1628279437&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFTNlg2UERYMkY4SkcmZW5jcnlwdGVkSWQ9QTA1OTQ5OTMyNk5ISVQ3S0NCOEU3JmVuY3J5cHRlZEFkSWQ9QTA3ODI1MDYzOTdGQVNNODVCT0g1JndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==)  (if you don't want to solder, recommended for testing before soldering)
 - [Perfboard](https://www.amazon.com/ELEGOO-Prototype-Soldering-Compatible-Arduino/dp/B072Z7Y19F/ref=sr_1_1_sspa?dchild=1&keywords=perfboard&qid=1628279449&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzU1pPTjY3VlVKTFpFJmVuY3J5cHRlZElkPUEwNzk0ODYwMVZBSFY4M0RMSlM0JmVuY3J5cHRlZEFkSWQ9QTA0MzUzMTMxRVlZU1AyWjQ3R0wmd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl) or [stripboard](https://www.amazon.com/YUNGUI-Prototype-perfboard-Sording-Electronic/dp/B088GSJM7G/ref=sr_1_3?dchild=1&keywords=stripboard&qid=1628279465&sr=8-3) (for a more permanent build)
 - [Jumper wires](https://www.amazon.com/EDGELEC-Breadboard-Optional-Assorted-Multicolored/dp/B07GD2BWPY/ref=sr_1_1_sspa?dchild=1&keywords=jumper+wires&qid=1628279487&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUE2RTJDN0I3NUxUMUUmZW5jcnlwdGVkSWQ9QTA4MDEwNDcyUEExWTVZTlQzNlRMJmVuY3J5cHRlZEFkSWQ9QTA5NDU0MzYxSkE3VExKQkZEQUxaJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==)
+- [Micro USB cable](https://www.amazon.com/AmazonBasics-Male-Micro-Cable-Black/dp/B0711PVX6Z/ref=asc_df_B0711PVX6Z/?tag=hyprod-20&linkCode=df0&hvadid=198093101467&hvpos=&hvnetw=g&hvrand=12260953306372108187&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9031971&hvtargid=pla-359221356227&psc=1) (for power)
 - [2 10k ohm resistors and 2 220-330 ohm resistors](https://www.amazon.com/Resistor-Assortment-Kit-Thermistor-Photoresistor/dp/B0792M83JH/ref=sr_1_1_sspa?dchild=1&keywords=resistor+kit&qid=1628279500&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFLOEZWQjNZQ1Q3RTYmZW5jcnlwdGVkSWQ9QTAzNjU4NTEyTlJXQllLU0syRkMmZW5jcnlwdGVkQWRJZD1BMDkxNjMwMExJRk9NUzE0MzFSMCZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
 
 ### Case and mount
@@ -101,8 +103,8 @@ Configuring the pins:
 - Scroll down. Type in `su pi -c "bash /path/to/BikeDashboardPlus/run.bash" &` **before the** `exit 0`. You can find out the path by typing `cat ~/BikeDashboardPlus.txt`. **Make sure to add the ampersand or the Pi will not boot.** This line will make the Raspberry Pi run the program when it boots. The `su pi -c` runs the program as the `pi` user so you would be able to access the files in the program later.
 - Save and exit: Press ^X (Control-X), then Y, then enter. 
 
-![rc_local_edit.png](../img/rc_local_edit.png)  
-*Don't* add the `vvvv Add here vvvv`. That is just to show where to add the line.
+  ![rc_local_edit.png](../img/rc_local_edit.png)  
+  *Don't* add the `vvvv Add here vvvv`. That is just to show where to add the line.
 
 4. Reboot the Pi: `sudo reboot`
 
