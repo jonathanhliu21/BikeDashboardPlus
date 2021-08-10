@@ -32,6 +32,10 @@ The materials depend on how you want to make this project. For example, if you w
 
 ## Schematic
 ![bd_schematic.png](../img/bd_schematic.png)
+Actual schematic
+
+![more intuitive schematic](../img/bd_schematic_clear.png)
+A more intuitive schematic
 
 If you do not feel like soldering, you can use a breadboard.
 
