@@ -39,7 +39,7 @@ A more intuitive schematic
 
 If you do not feel like soldering, you can use a breadboard.
 
-I did not design a PCB for this schematic. Instead, I soldered all of these components onto a prototype PCB, which was hard and time-consuming. I may design a custom PCB if I come back to this project. Also, soldering the LED panel is optional as all information displayed there will be displayed on the OLED.
+I did not design a PCB for this schematic. Instead, I soldered all of these components onto a prototype PCB, which was hard and time-consuming. I may design a custom PCB later. Also, soldering the LED panel is optional as all information displayed there will be displayed on the OLED.
 
 ## 3D Printing
 
