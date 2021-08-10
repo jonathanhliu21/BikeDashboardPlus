@@ -112,7 +112,7 @@ Configuring the pins:
 
 4. Reboot the Pi: `sudo reboot`
 
-From now on, the program should immediately run whenever you turn on and boot up your Raspberry Pi.
+From now on, the program should run after you boot up your Raspberry Pi.
 
 ## Disabling
 This prevents the program from running whenever you start up your Raspberry Pi.
