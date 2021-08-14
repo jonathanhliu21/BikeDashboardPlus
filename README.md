@@ -63,7 +63,6 @@ I will try to implement these enhancements as long as they are not a major chang
 - If the user chooses to update from the website, then automatically pull from the repository
 
 ### Later minor releases
-- Continue tracking even if disconnected
 - Track the distance along with coordinates instead of calculating the distance after
 - Make the LED panel show more than just speed
 - Make a more intuitive configuration page
@@ -74,7 +73,7 @@ I will try to implement these enhancements as long as they are not a major chang
 - Remake BOM to include smaller parts and redesign model so everything will be in one small piece attached to the bike
 
 ### Done 
-- None yet
+- Continue tracking even if disconnected
 
 ## Making this project yourself
 
