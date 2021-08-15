@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import json
 import os
 from copy import deepcopy
@@ -66,6 +67,15 @@ def cfg_page():
 def cfg_saved_page():
     return render_template("cfg_saved.html")
 
+@app.route("/cfg/raw", methods=["GET"])
+def cfg_raw_page():
+    cfgs = {}
+
+    # read from cfg.json and put in cfgs
+    with open("raspberrypi/cfg.json", 'r') as f:
+        cfgs = json.load(f)
+
+    return jsonify(cfgs)
 
 @app.route("/tzs", methods=["GET"])
 def tzs_page():
@@ -73,6 +83,7 @@ def tzs_page():
 
 @app.route("/tzs/raw", methods=["GET"])
 def tzs_raw_page():
+    # api for all timezones
     return jsonify(pytz.common_timezones)
 
 @app.route("/map", methods=["GET"])
@@ -83,7 +94,9 @@ def map_page():
         if (name.strip().upper() == "ERROR"):
             return "Error file, delete me!"
         else:
-            return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
+            _dt = datetime.datetime.strptime(name, "%Y-%m-%d_%H:%M:%S_track_path")
+            s = datetime.datetime.strftime(_dt, "Started tracking at: %Y-%m-%d %H:%M:%S")
+            return s
 
     # get all track files
     filenames = next(os.walk("tracking"), (None, None, []))[2]
@@ -128,7 +141,9 @@ def combine_map_page():
         if (name.strip().upper() == "ERROR"):
             return "Error file, delete me!"
         else:
-            return ("Started tracking at: " + name[0:4]+"-"+name[5:7]+"-"+name[8:10]+" "+name[11:13]+":"+name[14:16]+":"+name[17:19])
+            _dt = datetime.datetime.strptime(name, "%Y-%m-%d_%H:%M:%S_track_path")
+            s = datetime.datetime.strftime(_dt, "Started tracking at: %Y-%m-%d %H:%M:%S")
+            return s 
 
     # get all track files
     filenames = next(os.walk("tracking"), (None, None, []))[2]

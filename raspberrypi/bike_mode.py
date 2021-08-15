@@ -29,6 +29,7 @@ import sys
 import threading
 import time
 import traceback
+import typing as t
 from copy import deepcopy
 
 import Adafruit_SSD1306
@@ -121,9 +122,18 @@ def get_gps_data() -> None:
             print("GPSD has terminated")
 
 
-def new_track_file(tm: datetime.datetime) -> None:
+# converts dt as str to time zone
+def _conv_tmz(dt: t.Union[str, datetime.datetime], fmt: t.Union[str, None], tmz: str) -> datetime.datetime:
+    d_temp = datetime.datetime.strptime(
+        dt, fmt).replace(tzinfo=pytz.utc) if isinstance(dt, str) else dt
+    timezone = pytz.timezone(tmz)
+    d_localized = d_temp.astimezone(timezone)
+    return d_localized
+
+def new_track_file(tm: datetime.datetime, tmz: str) -> None:
     global fileName
 
+    tm = _conv_tmz(tm, None, tmz)
     fileName = str(tm).replace(" ", "_") + "_track_path"
 
     print(f"creating new track file with time: {fileName}")
@@ -255,7 +265,6 @@ def disp_th() -> None:
             print(f"OLED disconnected", file=sys.stderr)
             os._exit(1)
 
-
 def main_ser_connect(ser: serial.Serial) -> None:
     global cfg_ard, send, curdata, tracking, prevbstate1, prevbstate2, disp_data_g, cur_tz, oled_speed, wastracking
 
@@ -294,10 +303,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
 
                 # time
                 curtime = curdata["time"]
-                d_temp = datetime.datetime.strptime(
-                    curtime[:-5], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=pytz.utc)
-                timezone = pytz.timezone(cur_tz)
-                d_localized = d_temp.astimezone(timezone)
+                d_localized = _conv_tmz(curtime[:-5], "%Y-%m-%dT%H:%M:%S", cur_tz)
 
                 # speed, given in m/s
                 speed = curdata["speed"]
@@ -328,7 +334,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
                         wastracking = True
                         tm = datetime.datetime.strptime(
                             curdata["time"][:-5], "%Y-%m-%dT%H:%M:%S")
-                        new_track_file(tm)
+                        new_track_file(tm, cur_tz)
 
             # if button 2 pressed
             if ("BUTTON2" in rcv and rcv["BUTTON2"] and not prevbstate2 and tracking != 0):
