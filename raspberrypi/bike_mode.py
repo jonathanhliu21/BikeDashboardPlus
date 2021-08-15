@@ -124,8 +124,13 @@ def get_gps_data() -> None:
 
 # converts dt as str to time zone
 def _conv_tmz(dt: t.Union[str, datetime.datetime], fmt: t.Union[str, None], tmz: str) -> datetime.datetime:
-    d_temp = datetime.datetime.strptime(
-        dt, fmt).replace(tzinfo=pytz.utc) if isinstance(dt, str) else dt
+    d_temp = None
+    if (isinstance(dt, str)):
+        d_temp = datetime.datetime.strptime(
+            dt, fmt).replace(tzinfo=pytz.utc)
+    else:
+        d_temp = dt.replace(tzinfo=pytz.utc)
+
     timezone = pytz.timezone(tmz)
     d_localized = d_temp.astimezone(timezone)
     return d_localized
@@ -133,8 +138,8 @@ def _conv_tmz(dt: t.Union[str, datetime.datetime], fmt: t.Union[str, None], tmz:
 def new_track_file(tm: datetime.datetime, tmz: str) -> None:
     global fileName
 
-    tm = _conv_tmz(tm, None, tmz)
-    fileName = str(tm).replace(" ", "_") + "_track_path"
+    n_tm = _conv_tmz(tm, None, tmz)
+    fileName = datetime.datetime.strftime(n_tm, "%Y-%m-%d_%H:%M:%S_track_path")
 
     print(f"creating new track file with time: {fileName}")
 
@@ -298,7 +303,7 @@ def main_ser_connect(ser: serial.Serial) -> None:
                 send["LED"][1] = 0
 
                 # keep tracking if GPS was disconnected
-                if (wastracking):
+                if (tracking == 0 and wastracking):
                     tracking = 2
 
                 # time
