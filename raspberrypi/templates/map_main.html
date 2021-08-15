@@ -9,6 +9,10 @@
     <a href="/map/{{ filenames[1][i] }}">{{ filenames[0][i] }} {% if filenames[0][i][0] == 'S' %} UTC {% endif %}</a> <br>
     {% endfor %}
 
+    {% if filenames[0] | length == 0 %}
+    <p>No tracking files found</p>
+    {% endif %}
+
 </div>
 
 {% endblock %}

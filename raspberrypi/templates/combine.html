@@ -13,21 +13,28 @@
     <b>Make sure that the data in the files you combine is valid, or you may end up with an invalid combined file!</b> <br>
     <b>Note that you cannot separate files after you combine them!!</b> <br><br>
 
-    <input type="button" id="clearbutton" value="Click me to clear choices" @click="checked_=[]"> <br>
+    {% if filenames[0] | length > 0 %}
+        <input type="button" id="clearbutton" value="Click me to clear choices" @click="checked_=[]"> <br>
 
 
 
-    {% for i in range(filenames[0] | length) %}
-    <input type="checkbox" id="tracknum{{i}}" name="tracknum{{i}}" value="{{i}}" v-model="checked_">
-    <label for="tracknum{{i}}"> {{i+1}}. <a href="/map/{{filenames[1][i]}}">{{filenames[0][i]}}</a> </label>
-    <br>
-    {% endfor %}
+        {% for i in range(filenames[0] | length) %}
+        <input type="checkbox" id="tracknum{{i}}" name="tracknum{{i}}" value="{{i}}" v-model="checked_">
+        <label for="tracknum{{i}}"> {{i+1}}. <a href="/map/{{filenames[1][i]}}">{{filenames[0][i]}}</a> </label>
+        <br>
+        {% endfor %}
 
-    <div v-for="i in checked_">
-        [[parseInt(i)+1]]
-    </div>
+        <div v-for="i in checked_">
+            [[parseInt(i)+1]]
+        </div>
 
-    <input type="submit" :disabled="checked_.length <= 1" @click="post_cmb()"> <br>
+        <input type="submit" :disabled="checked_.length <= 1" @click="post_cmb()"> <br>
+    
+        {% else %}
+
+        <p>No tracking files found</p>
+        
+    {% endif %}
 </div>
 
 <script src="{{url_for('static', filename='js/combine.js')}}"></script>
