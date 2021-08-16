@@ -48,11 +48,11 @@ Other problems:
 
 The bugs are listed below. I will try my best to fix most of them, delete them from this list, and create a new bug-fixing release each time I do so. However, some may take longer than others to fix.
 
-- The track files are in UTC rather than the local time zone
 - The shutdown button can be easily pressed so I sometimes accidentally shut down my RPi even when I don't mean to.
+- The OLED library I'm using (Adafruit-SSD1306) is deprecated.
 
 ### Done
-- None yet
+- The track files are in UTC rather than the local time zone
 
 ## Upgrade ideas
 

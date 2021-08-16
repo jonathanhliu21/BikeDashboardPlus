@@ -74,7 +74,7 @@ At the end, click submit.
 ### Map
 You should not be able to see anything on the map page if you do not have any track files. If you do, the link name will be something like:
 ```
-Started tracking at: <date> <time> UTC
+Started tracking at: <date> <time> 
 ```
 When you click on it, it should look like this:
 ![map_page](/docs/img/bd_web_map.png)
