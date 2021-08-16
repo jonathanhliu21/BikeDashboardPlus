@@ -143,7 +143,7 @@ def combine_map_page():
         else:
             _dt = datetime.datetime.strptime(name, "%Y-%m-%d_%H:%M:%S_track_path")
             s = datetime.datetime.strftime(_dt, "Started tracking at: %Y-%m-%d %H:%M:%S")
-            return s 
+            return s
 
     # get all track files
     filenames = next(os.walk("tracking"), (None, None, []))[2]
@@ -195,7 +195,7 @@ def check_for_update() -> None:
     global need_update, cur_version
 
     response = requests.get("https://raw.githubusercontent.com/jonyboi396825/BikeDashboardPlus/master/VERSION")
-    need_update = not (response.text == cur_version)
+    need_update = not (response.text.strip() == cur_version)
 
 
 def main() -> None:
