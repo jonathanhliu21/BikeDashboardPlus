@@ -1,5 +1,7 @@
 # BikeDashboardPlus
 
+### Go to the [Medium page](https://medium.com/@jonathanhliu21/how-to-make-a-speedometer-tracker-for-a-bike-using-a-raspberry-pi-and-an-arduino-77140be90b9e) for a better tutorial! 
+
 - The make-yourself page is [here](docs/pages/make_yourself.md).  
 - [How to use your Bike Dashboard](docs/pages/usage.md)
 
