@@ -7,7 +7,7 @@
                 <tr>
                     <th>Configuration</th>
                     <th>Description</th>
-                    <th>Value</th>
+                    <th>Value (Current configuration shown)</th>
                 </tr>
 
                 <tr v-for="i in 5" :key='i'>
@@ -16,7 +16,7 @@
                         <a v-if="cfgs[i-1].name === 'TMZ'" href="/tzs" target="_blank">List of time zones</a>
                     </td>
                     <td> 
-                        <input v-model="msg[i-1]" :class="[cfgs[i-1].acpt.includes(msg[i-1]) || msg[i-1] === '' ? '' : 'cfgerr']" :name="[cfgs[i-1].name]">
+                        <input v-model="msg[i-1]" :class="[cfgs[i-1].acpt.includes(msg[i-1]) || msg[i-1] === '' ? '' : 'cfgerr']" :name="[cfgs[i-1].name]" :placeholder="[cfgs[i-1].value]">
                         <p v-if="!cfgs[i-1].acpt.includes(msg[i-1]) && msg[i-1] !== ''" class='cfgerrtxt'>Value out of range</p>
                     </td>
                 </tr>
