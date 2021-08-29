@@ -65,7 +65,7 @@ There are 3 options: the configuration page, the map page, and the combining pag
 The configuration page should look like this:
 ![cfg_page](/docs/img/bd_web_cfg.png)
 
-It is a table showing all the configurations, what they mean, and what value you have to enter. You have to enter that value into the text box on the right column of the table. 
+There is a table showing all the configurations, what they mean, and what value you have to enter. You have to enter your value into the text box on the right column of the table. The placeholder in each input box shows your current configuration.
 
 For the time zone, you should copy and paste from the list in the link rather than typing it out as it is case sensitive and you have to type it out exactly like it is in the table.
 
@@ -74,7 +74,7 @@ At the end, click submit.
 ### Map
 You should not be able to see anything on the map page if you do not have any track files. If you do, the link name will be something like:
 ```
-Started tracking at: <date> <time> UTC
+Started tracking at: <date> <time> 
 ```
 When you click on it, it should look like this:
 ![map_page](/docs/img/bd_web_map.png)

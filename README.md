@@ -1,8 +1,7 @@
 # BikeDashboardPlus
 
-### Go to the [Medium page](https://medium.com/@jonathanhliu21/how-to-make-a-speedometer-tracker-for-a-bike-using-a-raspberry-pi-and-an-arduino-77140be90b9e) for a better tutorial! 
+### Go to the [Medium page](https://medium.com/@jonathanhliu21/how-to-make-a-speedometer-tracker-for-a-bike-using-a-raspberry-pi-and-an-arduino-77140be90b9e) for a better installation tutorial! 
 
-- The make-yourself page is [here](docs/pages/make_yourself.md).  
 - [How to use your Bike Dashboard](docs/pages/usage.md)
 
 ![BD_finished](docs/img/bd_finished.jpg)  
@@ -50,11 +49,11 @@ Other problems:
 
 The bugs are listed below. I will try my best to fix most of them, delete them from this list, and create a new bug-fixing release each time I do so. However, some may take longer than others to fix.
 
-- The track files are in UTC rather than the local time zone
 - The shutdown button can be easily pressed so I sometimes accidentally shut down my RPi even when I don't mean to.
+- The OLED library I'm using (Adafruit-SSD1306) is deprecated.
 
 ### Done
-- None yet
+- The track files are in UTC rather than the local time zone
 
 ## Upgrade ideas
 
@@ -65,7 +64,6 @@ I will try to implement these enhancements as long as they are not a major chang
 - If the user chooses to update from the website, then automatically pull from the repository
 
 ### Later minor releases
-- Continue tracking even if disconnected
 - Track the distance along with coordinates instead of calculating the distance after
 - Make the LED panel show more than just speed
 - Make a more intuitive configuration page
@@ -76,7 +74,7 @@ I will try to implement these enhancements as long as they are not a major chang
 - Remake BOM to include smaller parts and redesign model so everything will be in one small piece attached to the bike
 
 ### Done 
-- None yet
+- Continue tracking even if disconnected
 
 ## Making this project yourself
 
