@@ -201,7 +201,8 @@ function handle_track_data(s, unit, is_valid){
         // display coordinates as polyline
         L.polyline(coords, {
             color: "blue",
-            smoothFactor: "4.0"
+            smoothFactor: "4.0",
+            fill: false
         }).addTo(mymap);
 
         // you can tell that the coords are a resumed track path by comparing the first element of
@@ -223,7 +224,8 @@ function handle_track_data(s, unit, is_valid){
                 [prev_paused_coords[0], coords[0]], {
                     color: "red",
                     smoothFactor: "2.0",
-                    dashArray: "4"
+                    dashArray: "4",
+                    fill: false
                 }
             ).addTo(mymap);
 
