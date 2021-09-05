@@ -183,6 +183,10 @@ function handle_track_data(s, unit, is_valid){
         })
     }).addTo(mymap);
 
+    // saves the PAUSED coordinates from previous polyline into here so we can draw a dashed line from 
+    // the previous polyline ending (PAUSED) to the start of the current polyline (RESUME)
+    var prev_paused_coords = [];
+
     // while loop to add polylines (track lines) and paused/resumed markers to map
     var ptr = 0; 
     while (ptr < arr.length){
@@ -197,7 +201,8 @@ function handle_track_data(s, unit, is_valid){
         // display coordinates as polyline
         L.polyline(coords, {
             color: "blue",
-            smoothFactor: "4.0"
+            smoothFactor: "4.0",
+            fill: false
         }).addTo(mymap);
 
         // you can tell that the coords are a resumed track path by comparing the first element of
@@ -213,6 +218,19 @@ function handle_track_data(s, unit, is_valid){
                     iconSize: 40
                 })
             }).addTo(mymap);
+
+            // draw line from previous pause to current resume
+            L.polyline(
+                [prev_paused_coords[0], coords[0]], {
+                    color: "red",
+                    smoothFactor: "2.0",
+                    dashArray: "4",
+                    fill: false
+                }
+            ).addTo(mymap);
+
+            // empty prev_paused_coords
+            prev_paused_coords = [];
         }
 
         // similar to above, you can tell if the current coords[] arr was paused by comparing the last
@@ -226,6 +244,9 @@ function handle_track_data(s, unit, is_valid){
                     iconSize: 40
                 })
             }).addTo(mymap);
+
+            // add to prev_paused_coords so we know where the paused was when drawing to resume
+            prev_paused_coords.push(coords[coords.length-1]);
         }
 
         // move ptr if paused so it is not an infinite loop
